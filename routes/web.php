@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Frontend
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Backend
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('admin.layout.index');
+    });
+
+    Route::resource('hangsanxuat', 'HangSanXuatController');
+});
+
+// Route::resource('phieudat','PhieuDat');
