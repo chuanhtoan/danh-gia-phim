@@ -200,29 +200,29 @@ var default_obj = {
   }
 };
 
-var default_btn = document.querySelector('#default-snackbar');
+// var default_btn = document.querySelector('#default-snackbar');
 
-default_btn.addEventListener('click', function () {
-  default_snackbar.show(default_obj);
-});
+// default_btn.addEventListener('click', function () {
+//   default_snackbar.show(default_obj);
+// });
 
-var start_snackbar = new __WEBPACK_IMPORTED_MODULE_0__material_snackbar__["a" /* MDCSnackbar */](document.querySelector('.mdc-snackbar--align-start'));
-var start_obj = {
-  message: 'Notified start',
-  actionText: 'Undo',
-  actionHandler: function actionHandler() {
-    //
-  }
-};
+// var start_snackbar = new __WEBPACK_IMPORTED_MODULE_0__material_snackbar__["a" /* MDCSnackbar */](document.querySelector('.mdc-snackbar--align-start'));
+// var start_obj = {
+//   message: 'Notified start',
+//   actionText: 'Undo',
+//   actionHandler: function actionHandler() {
+//     //
+//   }
+// };
 
-var start_btn = document.querySelector('#start-snackbar');
-start_btn.addEventListener('click', function () {
-  start_snackbar.show(start_obj);
-});
+// var start_btn = document.querySelector('#start-snackbar');
+// start_btn.addEventListener('click', function () {
+//   start_snackbar.show(start_obj);
+// });
 
 var start_snackbar_rtl = new __WEBPACK_IMPORTED_MODULE_0__material_snackbar__["a" /* MDCSnackbar */](document.querySelector('.mdc-snackbar--right'));
 var start_obj_rtl = {
-  message: 'Notified start',
+  message: 'Thêm thành công!',
   actionText: 'Undo',
   actionHandler: function actionHandler() {
     //

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sub</title>
+    <title>Utako | Admin Page</title>
 
 
     <link type="text/css" href="{{asset('backend/css/vendor-morris.css')}}" rel="stylesheet">
@@ -24,6 +24,29 @@
     {{-- Datatable --}}
     <link type="text/css" href="{{asset('backend/css/vendor-bootstrap-datatables.css')}}" rel="stylesheet">
     {{-- /Datatable --}}
+
+    {{-- Ajax Popup --}}
+    <!-- Important to work AJAX CSRF -->
+    <meta name="_token" content="{!! csrf_token() !!}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {{-- /Ajax Popup --}}
+
+    {{-- alertify --}}
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    {{-- /alertify --}}
+
+    {{-- web icon --}}
+    <link rel="shortcut icon" href="{{asset('backend/images/icon.png')}}" />
+
+    {{-- above_head --}}
+    @yield('above_head')
 
 </head>
 
@@ -65,7 +88,7 @@
 
 
     <!-- jQuery -->
-    <script src="{{asset('backend/vendor/jquery.min.js')}}"></script>
+    {{-- <script src="{{asset('backend/vendor/jquery.min.js')}}"></script> --}}
 
     <!-- Bootstrap -->
     <script src="{{asset('backend/vendor/popper.js')}}"></script>
@@ -132,65 +155,11 @@
     </script>
     {{-- /Datatable --}}
 
-    <script>
-        $(function() {
-            // window.morrisDashboardChart = new Morris.Area({
-            //     element: 'morris-area-chart',
-            //     data: [{
-            //             year: '2017-01',
-            //             a: 6352.27
-            //         },
-            //         {
-            //             year: '2017-02',
-            //             a: 4309.98
-            //         },
-            //         {
-            //             year: '2017-03',
-            //             a: 1465.98
-            //         },
-            //         {
-            //             year: '2017-04',
-            //             a: 1298.25
-            //         },
-            //         {
-            //             year: '2017-05',
-            //             a: 3209
-            //         },
-            //         {
-            //             year: '2017-06',
-            //             a: 2083
-            //         },
-            //         {
-            //             year: '2017-07',
-            //             a: 1285.23
-            //         },
-            //         {
-            //             year: '2017-08',
-            //             a: 1289
-            //         },
-            //         {
-            //             year: '2017-09',
-            //             a: 4430
-            //         },
-            //         {
-            //             year: '2017-10',
-            //             a: 8921.19
-            //         }
-            //     ],
-            //     xkey: 'year',
-            //     ykeys: ['a'],
-            //     labels: ['Earnings'],
-            //     lineColors: ['#fff'],
-            //     fillOpacity: '0.2',
-            //     gridEnabled: true,
-            //     gridTextColor: '#ffffff',
-            //     resize: true
-            // });
 
-        });
-    </script>
 
+    @yield('above_body')
 
 </body>
+
 
 </html>

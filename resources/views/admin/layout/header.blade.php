@@ -6,20 +6,10 @@
             <button class="btn btn-link text-white pl-0" type="button" data-toggle="sidebar">
                 <i class="material-icons align-middle md-36">short_text</i>
             </button>
-            <div class="page-title m-0">Financial</div>
+            {{-- <div class="page-title m-0">Hãng Sản Xuất</div> --}}
 
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item nav-link">
-                        <div class="form-group m-0">
-                            <div class="input-group input-group--inline">
-                                <div class="input-group-addon">
-                                    <i class="material-icons">search</i>
-                                </div>
-                                <input type="text" class="form-control" name="search" placeholder="Search app..">
-                            </div>
-                        </div>
-                    </li>
                     <li class="nav-item dropdown notifications d-flex align-self-center align-items-center" id="navbarNotifications">
                         <a href="#" class="nav-link dropdown-toggle notifications--active" data-toggle="dropdown" aria-expanded="false">
                             <i class="material-icons align-middle">notifications</i>
@@ -113,7 +103,7 @@
                                         <li class="list-group-item">
                                             <div class="media align-items-center">
                                                 <a href="profile.html">
-                                                    <img src="assets/images/avatars/person-1.jpg" class="img-fluid rounded-circle mr-2" width="35" alt="">
+                                                    <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="w-100">I started that project we talked...</div>
@@ -124,7 +114,7 @@
                                         <li class="list-group-item">
                                             <div class="media align-items-center">
                                                 <a href="profile.html">
-                                                    <img src="assets/images/avatars/person-11.jpg" class="img-fluid rounded-circle mr-2" width="35" alt="">
+                                                    <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="w-100">Can we arrange a meeting?...</div>
@@ -135,7 +125,7 @@
                                         <li class="list-group-item">
                                             <div class="media align-items-center">
                                                 <a href="profile.html">
-                                                    <img src="assets/images/avatars/person-12.jpg" class="img-fluid rounded-circle mr-2" width="35" alt="">
+                                                    <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="w-100">We need to fix some bugs...</div>
@@ -158,7 +148,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link dropdown-toggle dropdown-clear-caret" data-toggle="sidebar" data-target="#user-drawer">
                                 Frontted
-                                <img src="{{asset('backend/images/avatars/person-13.jpg')}}" class="img-fluid rounded-circle ml-1" width="35" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle ml-1" width="35" alt="">
                             </a>
                         </li>
                     </li>

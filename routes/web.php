@@ -24,7 +24,27 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.layout.index');
     });
 
-    Route::resource('hangsanxuat', 'HangSanXuatController');
+    Route::get('/login', function () {
+        return view('admin.admin_login');
+    });
+
+    // Route::get('hangsanxuat', 'HangSanXuatController@routineEdit');
+    // Route::resource('hangsanxuat', 'HangSanXuatController');
+
+    //Display Index Page
+    Route::get('/hangsanxuat', 'HangSanXuatController@index')->name('hangsanxuat.index');
+
+    // Populate Data in Edit Modal Form
+    Route::get('hangsanxuat/{hangsanxuat_id?}', 'HangSanXuatController@show');
+
+    //create New Product
+    Route::post('hangsanxuat', 'HangSanXuatController@store');
+
+    // update Existing Product
+    Route::put('hangsanxuat/{hangsanxuat_id}', 'HangSanXuatController@update');
+
+    // delete product
+    Route::delete('hangsanxuat/{hangsanxuat_id}', 'HangSanXuatController@destroy');
 });
 
 // Route::resource('phieudat','PhieuDat');

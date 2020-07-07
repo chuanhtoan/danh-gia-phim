@@ -6,47 +6,36 @@
             <nav class="drawer  drawer--dark">
                 <div class="drawer-spacer">
                     <div class="media align-items-center">
-                        <a href="index.html" class="drawer-brand-circle mr-2">S</a>
-                        <div class="media-body">
-                            <a href="index.html" class="h5 m-0 text-link">Sub Pro - Admin</a>
+                        <a href="{{route('hangsanxuat.index')}}"><img alt="Logo" src="{{asset('backend/images/logo_only.png')}}" /></a>
+                        <div class="media-body" style="padding-left: 14px; margin-top: 10px">
+                            <a href="{{route('hangsanxuat.index')}}" class="h5 m-0 text-link">Utako | Admin</a>
                         </div>
                     </div>
                 </div>
                 <!-- HEADING -->
                 <div class="py-2 drawer-heading">
-                    Dashboards
+                    Quản lý Phim
                 </div>
                 <!-- MENU -->
                 <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
-                    <li class="drawer-menu-item active ">
-                        <a href="index.html">
+                    <li class="drawer-menu-item">
+                    {{-- <li class="drawer-menu-item active "> --}}
+                        <a href="#">
                             <i class="material-icons">poll</i>
-                            <span class="drawer-menu-text"> Financial</span>
+                            <span class="drawer-menu-text"> Phim</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="projects.html">
+                        <a href="#">
                             <i class="material-icons">dns</i>
-                            <span class="drawer-menu-text"> Projects/Tickets</span>
-                            <span class="badge badge-pill badge-success ml-1">4</span>
+                            <span class="drawer-menu-text"> Thể loại</span>
+                            {{-- <span class="badge badge-pill badge-success ml-1">4</span> --}}
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="retail.html">
+                        <a href="{{route('hangsanxuat.index')}}">
                             <i class="material-icons">store</i>
-                            <span class="drawer-menu-text"> E-Commerce</span>
-                        </a>
-                    </li>
-                    <li class="drawer-menu-item ">
-                        <a href="real-estate-grid.html">
-                            <i class="material-icons">business</i>
-                            <span class="drawer-menu-text"> Real Estate</span>
-                        </a>
-                    </li>
-                    <li class="drawer-menu-item ">
-                        <a href="profile.html">
-                            <i class="material-icons">pages</i>
-                            <span class="drawer-menu-text"> Social</span>
+                            <span class="drawer-menu-text"> Hãng Sản Xuất</span>
                         </a>
                     </li>
                 </ul>

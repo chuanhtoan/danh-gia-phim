@@ -5,7 +5,7 @@
             <nav class="drawer drawer--light">
                 <div class="drawer-spacer drawer-spacer-border">
                     <div class="media align-items-center">
-                        <img src="{{asset('backend/images/avatars/person-13.jpg')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
+                        <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
                         <div class="media-body">
                             <a href="#" class="h5 m-0">Frontted</a>
                             <div>Account Manager</div>

@@ -64,7 +64,7 @@
             <div class="col-lg-4">
 
                 <div class="card card-body card-profile align-items-center justify-content-center">
-                    <img src="assets/images/avatars/person-3.jpg" class="img-fluid rounded-circle mr-2 mb-1" width="100" alt="">
+                    <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2 mb-1" width="100" alt="">
                     <p class="h3 mb-0">John Strehl</p>
                     <p>Top Seller (last month)</p>
                     <div class="text-center mb-2">
@@ -92,7 +92,7 @@
                     <ul class="list-group list-group-flush">
 
                         <li class="list-group-item d-flex flex-row">
-                            <img src="assets/images/avatars/person-1.jpg" alt="" class="rounded-circle mr-2" width="30" height="30">
+                            <img src="{{asset('backend/images/empty.png')}}" alt="" class="rounded-circle mr-2" width="30" height="30">
                             <div class="media-body">
                                 <span class="">Has earned</span>
                                 <strong>$1,742.00</strong>
@@ -101,7 +101,7 @@
                         </li>
 
                         <li class="list-group-item d-flex flex-row">
-                            <img src="assets/images/avatars/person-2.jpg" alt="" class="rounded-circle mr-2" width="30" height="30">
+                            <img src="{{asset('backend/images/empty.png')}}" alt="" class="rounded-circle mr-2" width="30" height="30">
                             <div class="media-body">
                                 <span class="">Has earned</span>
                                 <strong>$4,120.55</strong>
@@ -110,7 +110,7 @@
                         </li>
 
                         <li class="list-group-item d-flex flex-row">
-                            <img src="assets/images/avatars/person-3.jpg" alt="" class="rounded-circle mr-2" width="30" height="30">
+                            <img src="{{asset('backend/images/empty.png')}}" alt="" class="rounded-circle mr-2" width="30" height="30">
                             <div class="media-body">
                                 <span class="">Uploaded a new</span>
                                 <strong>video</strong>
@@ -119,7 +119,7 @@
                         </li>
 
                         <li class="list-group-item d-flex flex-row">
-                            <img src="assets/images/avatars/person-4.jpg" alt="" class="rounded-circle mr-2" width="30" height="30">
+                            <img src="{{asset('backend/images/empty.png')}}" alt="" class="rounded-circle mr-2" width="30" height="30">
                             <div class="media-body">
                                 <span class="">Has earned</span>
                                 <strong>$2,721.23</strong>
@@ -128,7 +128,7 @@
                         </li>
 
                         <li class="list-group-item d-flex flex-row">
-                            <img src="assets/images/avatars/person-5.jpg" alt="" class="rounded-circle mr-2" width="30" height="30">
+                            <img src="{{asset('backend/images/empty.png')}}" alt="" class="rounded-circle mr-2" width="30" height="30">
                             <div class="media-body">
                                 <span class="">Uploaded a new</span>
                                 <strong>video</strong>
@@ -152,7 +152,7 @@
                         <li class="list-group-item">
                             <div class="media align-items-center">
                                 <span class="lead mr-1">1.</span>
-                                <img src="assets/images/avatars/person-5.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="30" alt="">
                                 <div class="media-body lh-12">
                                     <a href="#">John Mix</a><br/>
                                     <small class="text-muted">54 done</small>
@@ -166,7 +166,7 @@
                         <li class="list-group-item">
                             <div class="media align-items-center">
                                 <span class="lead mr-1">2.</span>
-                                <img src="assets/images/avatars/person-3.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="30" alt="">
                                 <div class="media-body lh-12">
                                     <a href="#">Steven Short</a><br/>
                                     <small class="text-muted">11 done</small>
@@ -180,7 +180,7 @@
                         <li class="list-group-item">
                             <div class="media align-items-center">
                                 <span class="lead mr-1">3.</span>
-                                <img src="assets/images/avatars/person-6.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="30" alt="">
                                 <div class="media-body lh-12">
                                     <a href="#">Mark Ups</a><br/>
                                     <small class="text-muted">1 done</small>
@@ -194,7 +194,7 @@
                         <li class="list-group-item">
                             <div class="media align-items-center">
                                 <span class="lead mr-1">4.</span>
-                                <img src="assets/images/avatars/person-2.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="30" alt="">
                                 <div class="media-body lh-12">
                                     <a href="#">Tara Knows</a><br/>
                                     <small class="text-muted">35 done</small>
@@ -208,7 +208,7 @@
                         <li class="list-group-item">
                             <div class="media align-items-center">
                                 <span class="lead mr-1">5.</span>
-                                <img src="assets/images/avatars/person-1.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="">
+                                <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="30" alt="">
                                 <div class="media-body lh-12">
                                     <a href="#">Lucas Kane</a><br/>
                                     <small class="text-muted">25 done</small>

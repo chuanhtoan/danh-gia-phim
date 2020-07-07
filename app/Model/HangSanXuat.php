@@ -8,4 +8,5 @@ class HangSanXuat extends Model
 {
     protected $table = "HangSanXuat";
 
+    public $fillable = ['ten'];
 }
