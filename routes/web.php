@@ -19,17 +19,18 @@ Route::get('/', function () {
 });
 
 //Backend
-Route::group(['prefix' => 'admin'], function () {
+
+//Login
+Route::get('admin/login','LoginAdminController@getLogin');
+Route::post('admin/login','LoginAdminController@postLogin');
+Route::get('admin/logout','LoginAdminController@getLogout');
+
+Route::group(['prefix' => 'admin','middleware' => 'adminLogin'], function () {
+    
     Route::get('/', function () {
         return view('admin.layout.index');
     });
 
-    Route::get('/login', function () {
-        return view('admin.admin_login');
-    });
-
-    // Route::get('hangsanxuat', 'HangSanXuatController@routineEdit');
-    // Route::resource('hangsanxuat', 'HangSanXuatController');
 
     //Display Index Page
     Route::get('/hangsanxuat', 'HangSanXuatController@index')->name('hangsanxuat.index');

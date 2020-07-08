@@ -28,7 +28,7 @@
                     <li class="drawer-menu-item">
                         <a href="#">
                             <i class="material-icons">dns</i>
-                            <span class="drawer-menu-text"> Thể loại</span>
+                            <span class="drawer-menu-text"> Thể Loại</span>
                             {{-- <span class="badge badge-pill badge-success ml-1">4</span> --}}
                         </a>
                     </li>

@@ -11,6 +11,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
+    }
+}
+
+class UserSeeder extends Seeder{
+
+    public function run()
+    {
+        DB::table('User')->insert(
+            [
+                'username'=>'admin',
+                'password'=>bcrypt('admin'),
+                'loai'=>'admin',
+            ]
+        );
     }
 }

@@ -7,8 +7,8 @@
                     <div class="media align-items-center">
                         <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle mr-2" width="35" alt="">
                         <div class="media-body">
-                            <a href="#" class="h5 m-0">Frontted</a>
-                            <div>Account Manager</div>
+                            <a class="h5 m-0"><b>{{Auth::guard('admin')->user()->username}}</b></a>
+                            <div>Quản lý tài khoản</div>
                         </div>
                     </div>
                 </div>
@@ -26,21 +26,21 @@
                 <ul class="drawer-menu" id="userMenu" data-children=".drawer-submenu">
                     <li class="drawer-menu-item">
                         <a href="account.html">
-                        <i class="material-icons">lock</i>
-                        <span class="drawer-menu-text"> Account</span>
-                    </a>
+                            <i class="material-icons">lock</i>
+                            <span class="drawer-menu-text"> Account</span>
+                        </a>
                     </li>
                     <li class="drawer-menu-item">
                         <a href="profile.html">
-                        <i class="material-icons">account_circle</i>
-                        <span class="drawer-menu-text"> Profile</span>
-                    </a>
+                            <i class="material-icons">account_circle</i>
+                            <span class="drawer-menu-text"> Profile</span>
+                        </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="login.html">
-                        <i class="material-icons">exit_to_app</i>
-                        <span class="drawer-menu-text"> Logout</span>
-                    </a>
+                        <a href="/admin/logout">
+                            <i class="material-icons">exit_to_app</i>
+                            <span class="drawer-menu-text">Đăng Xuất</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

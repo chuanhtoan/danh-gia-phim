@@ -147,7 +147,7 @@
                     <li class="nav-item nav-divider">
                         <li class="nav-item">
                             <a href="#" class="nav-link dropdown-toggle dropdown-clear-caret" data-toggle="sidebar" data-target="#user-drawer">
-                                Frontted
+                                <b>{{Auth::guard('admin')->user()->username}}</b>
                                 <img src="{{asset('backend/images/empty.png')}}" class="img-fluid rounded-circle ml-1" width="35" alt="">
                             </a>
                         </li>

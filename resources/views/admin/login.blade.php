@@ -48,14 +48,18 @@
 								<img src="{{asset('backend/images/logo.png')}}">
 							</div>
 							<div class="kt-login__signin">
-								<form class="kt-form" method="POST">
-								{{-- <form class="kt-form" method="POST" action="{{route('admin.login')}}"> --}}
+								<form class="kt-form" method="POST" action="/admin/login">
 									@csrf
+									{{-- Thong Bao Dang Nhap Loi --}}
+									@if (isset($error))
+										<div class="text-danger">Tài khoản hoặc mật khẩu sai</div>
+									@endif
+
                                     <div class="input-group">
-										<input class="form-control" type="text" placeholder="Tên tài khoản" name="admin_username" autocomplete="off">
+										<input class="form-control" type="text" placeholder="Tên tài khoản" name="username" autocomplete="off">
 									</div>
 									<div class="input-group">
-										<input class="form-control" type="password" placeholder="Mật khẩu" name="admin_password">
+										<input class="form-control" type="password" placeholder="Mật khẩu" name="password">
 									</div>
 									<div class="kt-login__actions">
 										<button id="kt_login_signin_submit" class="btn btn-brand btn-pill kt-login__btn-primary">Đăng nhập</button>
@@ -73,4 +77,5 @@
 	</body>
 
 	<!-- end::Body -->
+
 </html>
