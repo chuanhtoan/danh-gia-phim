@@ -12,6 +12,8 @@ $(document).ready(function(){
     $('#btn_add').click(function(){
         $('#btn-save').val("add");
         $('#frmProducts').trigger("reset");
+        $('#textUnique').html("");
+        $('#ten').removeClass('is-invalid');
         $('#createEditModal').modal('show');
     });
 
@@ -20,6 +22,8 @@ $(document).ready(function(){
     //display modal form for product EDIT ***************************
     $(document).on('click','.open_modal',function(){
         var product_id = $(this).val();
+        $('#textUnique').html("");
+        $('#ten').removeClass('is-invalid');
     
         // Populate Data in Edit Modal Form
         $.ajax({
@@ -29,7 +33,6 @@ $(document).ready(function(){
                 console.log(data);
                 $('#product_id').val(data.id);
                 $('#ten').val(data.ten);
-                // $('#price').val(data.price);
                 $('#btn-save').val("update");
                 $('#createEditModal').modal('show');
             },
@@ -88,7 +91,6 @@ $(document).ready(function(){
         // e.preventDefault(); 
         var formData = {
             ten: $('#ten').val(),
-            // price: $('#price').val(),
         }
 
         //used to determine the http verb to use [add=POST], [update=PUT]
@@ -125,8 +127,10 @@ $(document).ready(function(){
                 $('#createEditModal').modal('hide');
             },
             error: function (data) {
+                $('#ten').addClass('is-invalid');
+                $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
                 console.log('Error:', data);
-            }
+            }           
         });
     }
 
@@ -141,7 +145,7 @@ $(document).ready(function(){
             type: "GET",
             url: url + '/' + product_id,
             success: function (data) {
-                $('#lableXoa').html("" + data.ten);
+                $('#lableXoa').html('Xóa hãng sản xuất "' + data.ten + '" ?');
                 $('#deleteModal').modal('show');
             },
             error: function (data) {

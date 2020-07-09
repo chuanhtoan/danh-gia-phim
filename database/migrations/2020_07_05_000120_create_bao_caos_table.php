@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateBaoCaosTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateBaoCaosTable extends Migration
             $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
             $table->foreignId('idUser')->constrained('User')->onDelete('cascade');
             $table->string('noiDung');
-            $table->date('ngay');
+            $table->date('ngay')->default(Carbon::now());
             $table->timestamps();
         });
     }

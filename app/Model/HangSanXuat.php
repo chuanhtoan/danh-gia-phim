@@ -8,5 +8,10 @@ class HangSanXuat extends Model
 {
     protected $table = "HangSanXuat";
 
-    public $fillable = ['ten'];
+    protected $fillable = ['ten'];
+
+    public function Phim()
+    {
+        return $this->hasMany('App\Model\Phim', 'idHangSanXuat', 'id');
+    }
 }

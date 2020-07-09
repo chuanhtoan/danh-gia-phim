@@ -15,7 +15,8 @@ class CreateTheLoaisTable extends Migration
     {
         Schema::create('TheLoai', function (Blueprint $table) {
             $table->id();
-            $table->string('ten',50);
+            $table->string('ten',50)->unique();
+            $table->string('moTa',300)->nullable();
             $table->timestamps();
         });
     }

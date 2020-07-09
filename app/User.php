@@ -37,4 +37,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function BaiViet()
+    {
+        return $this->hasMany('App\Model\BaiViet', 'idUser', 'id');
+    }
+    
+    public function BangXepHang()
+    {
+        return $this->hasMany('App\Model\BangXepHang', 'idUser', 'id');
+    }
+
 }

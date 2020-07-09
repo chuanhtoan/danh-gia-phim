@@ -27,6 +27,15 @@ class HangSanXuatController extends Controller
      */
     public function store(Request $request)
     {
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'ten' => 'unique:HangSanXuat',
+        ],
+        [
+            'ten.unique' => 'Hãng sản xuất đã tồn tại',
+        ]);
+
         $product = HangSanXuat::create($request->input());
         return response()->json($product);
     }
@@ -52,6 +61,15 @@ class HangSanXuatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'ten' => [\Illuminate\Validation\Rule::unique('HangSanXuat')->ignore($id)],
+        ],
+        [
+            'ten.unique' => 'Hãng sản xuất đã tồn tại',
+        ]);
+
         $product = HangSanXuat::find($id);
         $product->ten = $request->ten;
         $product->save();

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\HangSanXuat;
+use App\Model\TheLoai;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
-class HangSanXuatController extends Controller
+class TheLoaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class HangSanXuatController extends Controller
      */
     public function index()
     {
-        $products = HangSanXuat::all();
-        return view('admin.hangsanxuat.index')->with('products', $products);
+        $products = TheLoai::all();
+        return view('admin.theloai.index')->with('products', $products);
     }
 
     /**
@@ -27,7 +28,16 @@ class HangSanXuatController extends Controller
      */
     public function store(Request $request)
     {
-        $product = HangSanXuat::create($request->input());
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'ten' => 'unique:TheLoai',
+        ],
+        [
+            'ten.unique' => 'Thể loại đã tồn tại',
+        ]);
+
+        $product = TheLoai::create($request->input());
         return response()->json($product);
     }
 
@@ -39,7 +49,7 @@ class HangSanXuatController extends Controller
      */
     public function show($product_id)
     {
-        $product = HangSanXuat::find($product_id);
+        $product = TheLoai::find($product_id);
         return response()->json($product);
     }
 
@@ -52,8 +62,18 @@ class HangSanXuatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = HangSanXuat::find($id);
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'ten' => [\Illuminate\Validation\Rule::unique('TheLoai')->ignore($id)],
+        ],
+        [
+            'ten.unique' => 'Thể loại đã tồn tại',
+        ]);
+
+        $product = TheLoai::find($id);
         $product->ten = $request->ten;
+        $product->moTa = $request->moTa;
         $product->save();
         return response()->json($product);
     }
@@ -66,7 +86,7 @@ class HangSanXuatController extends Controller
      */
     public function destroy($product_id)
     {
-        $product = HangSanXuat::destroy($product_id);
+        $product = TheLoai::destroy($product_id);
         return response()->json($product);
     }
 }

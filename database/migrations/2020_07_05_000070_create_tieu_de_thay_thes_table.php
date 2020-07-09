@@ -15,7 +15,7 @@ class CreateTieuDeThayThesTable extends Migration
     {
         Schema::create('TieuDeThayThe', function (Blueprint $table) {
             $table->id();
-            $table->string('ten',50);
+            $table->string('ten',50)->unique();
             $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
             $table->timestamps();
         });

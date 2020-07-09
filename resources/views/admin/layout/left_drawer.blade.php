@@ -20,13 +20,13 @@
                 <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
                     <li class="drawer-menu-item">
                     {{-- <li class="drawer-menu-item active "> --}}
-                        <a href="#">
-                            <i class="material-icons">poll</i>
+                        <a href="{{route('phim.index')}}">
+                            <i class="material-icons">local_movies</i>
                             <span class="drawer-menu-text"> Phim</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="#">
+                        <a href="{{route('theloai.index')}}">
                             <i class="material-icons">dns</i>
                             <span class="drawer-menu-text"> Thể Loại</span>
                             {{-- <span class="badge badge-pill badge-success ml-1">4</span> --}}
@@ -36,6 +36,12 @@
                         <a href="{{route('hangsanxuat.index')}}">
                             <i class="material-icons">store</i>
                             <span class="drawer-menu-text"> Hãng Sản Xuất</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item ">
+                        <a href="{{route('nhanvat.index')}}">
+                            <i class="material-icons">movies</i>
+                            <span class="drawer-menu-text"> Nhân Vật</span>
                         </a>
                     </li>
                 </ul>

@@ -17,7 +17,7 @@ class CreateNhanVatsTable extends Migration
             $table->id();
             $table->string('ten',50);
             $table->string('loai',50);
-            $table->string('hinh');
+            $table->string('hinh')->default('blank.png');
             $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class CreateHangSanXuatsTable extends Migration
     {
         Schema::create('HangSanXuat', function (Blueprint $table) {
             $table->id();
-            $table->string('ten',50);
+            $table->string('ten',50)->unique();
             $table->timestamps();
         });
     }

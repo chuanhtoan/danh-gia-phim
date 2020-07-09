@@ -41,7 +41,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên Hãng Sản Xuất</th>
-                                <th>Thao Tác</th>
+                                <th style="min-width: 110px;">Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody id="products-list" name="products-list">
@@ -53,7 +53,6 @@
                                         <div style="display: inline-block">
                                             <button class="btn btn-warning btn-detail open_modal" value="{{$item->id}}">Edit</button>
                                             <button class="btn btn-danger delete-product" value="{{$item->id}}">Delete</button>
-                                            {{-- <button class="btn btn-primary" id="start-snackbar-rtl">Notify</button> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -83,6 +82,7 @@
                     <div class="form-group"> {{--input-group--}}
                         <label for="ten">Tên:</label>
                         <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên hãng sãn xuất">
+                        <p id="textUnique" class="invalid-feedback d-inline text-danger"></p>
                     </div>
                 </form>
             </div>
@@ -100,7 +100,7 @@
     <div class="modal-dialog modal-md modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="deleteModalLabel">Xóa hãng sản xuất này?</h4>
+                <h4 class="modal-title" id="deleteModalLabel">Thông báo!</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                 </button>
             </div>

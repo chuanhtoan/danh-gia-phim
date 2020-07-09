@@ -15,17 +15,18 @@ class CreatePhimsTable extends Migration
     {
         Schema::create('Phim', function (Blueprint $table) {
             $table->id();
-            $table->string('ten',50);
-            $table->string('kieu',50);
-            $table->string('tomTat');
+            $table->string('ten',50)->unique();
+            $table->enum('kieu', ['TV Series','Movie','OVA'])->default('TV Series');
+            $table->string('tomTat',1200)->nullable();
             $table->integer('soTap');
             $table->string('thoiLuong',50);
+            $table->enum('nguon', ['Manga','Light Novel','None'])->default('Manga');
+            $table->enum('ngonNgu', ['Japanese','English','Chinese'])->default('Japanese');
+            $table->enum('phanLoaiDoTuoi', ['G','PG','PG-13','R','NC-17'])->default('G');
+            $table->enum('trangThai', ['Đã kết thúc','Đang phát sóng'])->default('Đã kết thúc');
             $table->string('ngayCongChieu',50);
-            $table->string('nguon',50);
-            $table->string('ngonNgu',50);
-            $table->string('phanLoaiDoTuoi',50);
-            $table->string('trangThai',50);
-            $table->string('trailer');
+            $table->double('diemTrungBinh')->nullable()->default(0);
+            $table->string('trailer')->nullable();
             $table->foreignId('idHangSanXuat')->constrained('HangSanXuat')->onDelete('cascade');
             $table->timestamps();
         });
