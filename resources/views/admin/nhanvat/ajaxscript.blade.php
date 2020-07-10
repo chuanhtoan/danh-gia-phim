@@ -4,16 +4,17 @@
 $(document).ready(function(){
 
     //get base URL *********************
+    // var url = $('#url').val();
     var url = '/admin/nhanvat';
 
 
     //display modal form for creating new product *********************
     $('#btn_add').click(function(){
         $('#btn-save').val("add");
-        $('#frmProducts_Create').trigger("reset");
+        $('#frmProducts').trigger("reset");
         $('#textUnique').html("");
-        $('#hinh').removeClass('is-invalid');
-        $('#createModal').modal('show');
+        $(".image-preview").attr('src','');
+        $('#createEditModal').modal('show');
     });
 
 
@@ -22,22 +23,20 @@ $(document).ready(function(){
     $(document).on('click','.open_modal',function(){
         var product_id = $(this).val();
         $('#textUnique').html("");
-        $('#hinh').removeClass('is-invalid');
-
-        document.getElementById("frmProducts_Create").action = "/admin/nhanvat/"+product_id;
     
         // Populate Data in Edit Modal Form
         $.ajax({
             type: "GET",
             url: url + '/' + product_id,
             success: function (data) {
-                // console.log(data);
                 $('#product_id').val(data.id);
                 $('#ten').val(data.ten);
                 $('#loai').val(data.loai);
+                $(".image-preview").attr('src','{{asset('images/nhanvat/upload')}}/'+data.hinh);
+                $("#image-input").val(data.hinh);
                 $('#idPhim').val(data.idPhim);
                 $('#btn-save').val("update");
-                $('#createModal').modal('show');
+                $('#createEditModal').modal('show');
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -49,13 +48,13 @@ $(document).ready(function(){
     
     // create new product / update existing product ***************************
     $("#btn-save").click(function(){
-        var hl = $("#frmProducts_Create").valid();    
+        var hl = $("#frmProducts").valid();    
         if(hl){
-            ajaxTaoNhanVat($("#frmProducts_Create"));
+            thucHienAjax();
         }
     });
 
-    $("#frmProducts_Create").validate({
+    $("#frmProducts").validate({
         onfocusout: function (element) {
             if ($(element).val() == "") return;
             var hl = $(element).valid();
@@ -92,29 +91,20 @@ $(document).ready(function(){
         }
     });
 
-    $("#hinh").on('change', function (evt) {
-        var tgt = evt.target || window.event.srcElement,
-            files = tgt.files;
-
-        // FileReader support
-        if (FileReader && files && files.length) {
-            var fr = new FileReader();
-            fr.onload = function () {
-                $("#bia").attr('src',fr.result) ;
-                tenHinh = fr.result;
+    function thucHienAjax(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
-            fr.readAsDataURL(files[0]);
+        })
+
+        // e.preventDefault(); 
+        var formData = {
+            ten: $('#ten').val(),
+            loai: $('#loai').val(),
+            hinh: $('#image-input').val(),
+            idPhim: $('#idPhim').val(),
         }
-
-    });
-
-    function ajaxTaoNhanVat(form){
-
-        var form = new FormData();
-        form.append('hinh',$("#hinh").prop('files')[0]);
-        form.append('ten',$("#ten").val());
-        form.append('loai',$("#loai").val());
-        form.append('idPhim',$("#idPhim").children('option:selected').val());
 
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
@@ -126,51 +116,43 @@ $(document).ready(function(){
             type = "PUT"; //for updating existing resource
             my_url += '/' + product_id;
         }
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+        console.log(formData);
         $.ajax({
-            dataType: 'text',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form,
-            type: 'post',
-            url: '/admin/nhanvat',
-            async:false,
-            success: function (data) {                
-                console.log(data.hinh);
-
-                var image_link = "{{asset('backend/images/nhanvat/')}}/" + tenHinh;
-
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + $("#ten").val() + '</td><td>' + $("#loai").val() + '</td><td>' 
-                + '<img src="' + image_link + '" class="form-cotrol" width="70" class="img-thumbnail">' 
+            type: type,
+            url: my_url,
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.loai + '</td><td>' 
+                + "<img src='{{asset('images/nhanvat/upload')}}/" + data.hinh + "' class='form-cotrol' width='70' class='img-thumbnail'>"
                 + '</td><td>' + $('#idPhim option:selected').html();
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
-                
-                $('#products-list').append(product);
+                if (state == "add"){ //if user added a new record
+                    $('#products-list').append(product);
                     // alertify
-                alertify.success('Thêm thành công');
-                
-                $('#frmProducts_Create').trigger("reset");
-                $('#createModal').modal('hide');
+                    alertify.success('Thêm thành công');
+                }else{ //if user updated an existing record
+                    $("#product" + product_id).replaceWith( product );
+                    // alertify
+                    alertify.success('Sửa thành công');
+                }
+                $('#frmProducts').trigger("reset");
+                $('#createEditModal').modal('hide');
             },
             error: function (data) {
+                $('#textUnique').html(JSON.parse(data.responseText).errors.hinh[0]);
                 console.log('Error:', data);
             }
         });
     }
 
 
-    
     // delete product and remove it from TABLE list ***************************
+    var product_id;
+
     $(document).on('click','.delete-product',function(){
-         var product_id = $(this).val();
+         product_id = $(this).val();
         
         // Populate Data in Delete Modal Form
         $.ajax({
@@ -184,27 +166,27 @@ $(document).ready(function(){
                 console.log('Error:', data);
             }
         });
+    });
 
-        // Delete Data
-        $("#btn-delete").click(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            })
-            $.ajax({
-                type: "DELETE",
-                url: url + '/' + product_id,
-                success: function (data) {
-                    $("#product" + product_id).remove();
-                    $('#deleteModal').modal('hide');
-                    // alertify
-                    alertify.success('Xóa thành công');
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
+    // Delete Data
+    $("#btn-delete").click(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        })
+        $.ajax({
+            type: "DELETE",
+            url: url + '/' + product_id,
+            success: function (data) {
+                $("#product" + product_id).remove();
+                $('#deleteModal').modal('hide');
+                // alertify
+                alertify.success('Xóa thành công');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
         });
     });
     

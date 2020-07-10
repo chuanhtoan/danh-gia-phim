@@ -137,6 +137,8 @@ $(document).ready(function(){
 
     
     // delete product and remove it from TABLE list ***************************
+    var product_id;
+
     $(document).on('click','.delete-product',function(){
          var product_id = $(this).val();
         
@@ -152,30 +154,30 @@ $(document).ready(function(){
                 console.log('Error:', data);
             }
         });
+    });
 
-        // Delete Data
-        $("#btn-delete").click(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            })
-            $.ajax({
-                type: "DELETE",
-                url: url + '/' + product_id,
-                success: function (data) {
-                    $("#product" + product_id).remove();
-                    $('#deleteModal').modal('hide');
-                    // alertify
-                    alertify.success('Xóa thành công');
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
+    // Delete Data
+    $("#btn-delete").click(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        })
+        $.ajax({
+            type: "DELETE",
+            url: url + '/' + product_id,
+            success: function (data) {
+                $("#product" + product_id).remove();
+                $('#deleteModal').modal('hide');
+                // alertify
+                alertify.success('Xóa thành công');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
         });
     });
-    
+
 });
 </script>
 

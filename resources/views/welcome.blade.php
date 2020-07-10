@@ -84,6 +84,29 @@
                     Laravel
                 </div>
 
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous" />
+                
+                <h1 style="text-align:center;">Standalone Responsive Filemanager</h1>
+                <hr>
+                <a href="plugins/filemanager/dialog.php?relative_url=1&type=0&field_id=image-input" class="btn iframe-btn" type="button">Open Filemanager</a>
+                <input type="hidden" id="image-input">
+                <img style="width:20%;" class="image-preview" src="">
+                
+                <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+                <script>
+                    $('.iframe-btn').fancybox({  
+                        'width'    : 900,
+                        'height'  : 600,
+                        'type'    : 'iframe',
+                        'autoScale'      : false
+                    });
+                    function responsive_filemanager_callback(field_id){
+                        var url=jQuery('#'+field_id).val();
+                        $(".image-preview").attr('src','http://localhost/filemanager/plugins/source/'+url);
+                    }
+                </script>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>

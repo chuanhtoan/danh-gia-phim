@@ -149,8 +149,6 @@ $(document).ready(function(){
             idHangSanXuat: $('#idHangSanXuat').val(),
         }
 
-        console.log('formData: ', formData);
-
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
         var type = "POST"; //for creating new resource
@@ -161,7 +159,7 @@ $(document).ready(function(){
             type = "PUT"; //for updating existing resource
             my_url += '/' + product_id;
         }
-        console.log(formData);
+        
         $.ajax({
             type: type,
             url: my_url,
@@ -174,12 +172,16 @@ $(document).ready(function(){
                     if(data.tomTat.length>30) tomTat = data.tomTat.substring(0,30)+'...'; 
                     else tomTat = data.tomTat;
 
+                // Trailer phim khac rong va khac null
+                var trailer = (data.trailer!="" && data.trailer!=null)?'<a href="{{' + data.trailer + '}}">Link</a>':"";
+
                 var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.kieu + '</td><td>' + tomTat
                             + '</td><td>' + data.soTap + '</td><td>' + data.thoiLuong + '</td><td>' + data.nguon + '</td><td>' + data.ngonNgu + '</td><td>' + data.phanLoaiDoTuoi + '</td><td>' + data.trangThai + '</td><td>' + data.ngayCongChieu + '</td><td>' 
                             + $('#idHangSanXuat option:selected').html() + '</td><td>' 
-                            + ((data.trailer==null)?(""):(data.trailer)) + '</td><td>' + '';
+                            + trailer + '</td><td>' + '';
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
+
                 if (state == "add"){ //if user added a new record
                     $('#products-list').append(product);
                     // alertify
@@ -204,6 +206,8 @@ $(document).ready(function(){
 
     
     // delete product and remove it from TABLE list ***************************
+    var product_id;
+
     $(document).on('click','.delete-product',function(){
          var product_id = $(this).val();
         
@@ -219,27 +223,27 @@ $(document).ready(function(){
                 console.log('Error:', data);
             }
         });
+    });
 
-        // Delete Data
-        $("#btn-delete").click(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            })
-            $.ajax({
-                type: "DELETE",
-                url: url + '/' + product_id,
-                success: function (data) {
-                    $("#product" + product_id).remove();
-                    $('#deleteModal').modal('hide');
-                    // alertify
-                    alertify.success('Xóa thành công');
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
+    // Delete Data
+    $("#btn-delete").click(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        })
+        $.ajax({
+            type: "DELETE",
+            url: url + '/' + product_id,
+            success: function (data) {
+                $("#product" + product_id).remove();
+                $('#deleteModal').modal('hide');
+                // alertify
+                alertify.success('Xóa thành công');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
         });
     });
     

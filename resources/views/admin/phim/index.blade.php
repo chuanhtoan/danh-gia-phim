@@ -71,7 +71,12 @@
                                     <td>{{$item->trangThai}}</td>
                                     <td>{{$item->ngayCongChieu}}</td>
                                     <td>{{App\Model\HangSanXuat::find($item->idHangSanXuat)->ten}}</td>
-                                    <td>{{$item->trailer}}</td>
+                                    <td>
+                                        @php $link = $item->trailer @endphp
+                                        @if( $link!='' && $link!=null )
+                                            <a href="{{$link}}">Link</a>
+                                        @endif
+                                    </td>
                                     <td>{{$item->diemTrungBinh}}</td>
                                     <td>
                                         <div style="display: inline-block">

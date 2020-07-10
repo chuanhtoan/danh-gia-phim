@@ -19,7 +19,7 @@ class NhanVatController extends Controller
     {
         $products = NhanVat::all();
         $phim = Phim::all();
-        return view('admin.nhanvat.index')->with(['products'=>$products, 'phim'=>$phim]);
+        return view('admin.nhanvat.index')->with(['products'=>$products,'phim'=>$phim]);
     }
 
     /**
@@ -30,27 +30,16 @@ class NhanVatController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new NhanVat();
-        $product->ten = $request->ten;
-        $product->loai = $request->loai;
-        $product->idPhim = $request->idPhim;
+        // Kiem tra hinh
+        $this->validate($request,
+        [
+            'hinh' => 'required',
+        ],
+        [
+            'hinh.required' => 'Bạn chưa chọn hình',
+        ]);
 
-        $anh = $request->file('hinh');
-
-        if($anh){  
-            $tenanh = $anh->getClientOriginalName();
-
-           $tenanh_ = explode('.',$tenanh)[0];
-           $_tenanh = explode('.',$tenanh)[1];
-           $tenanh = $tenanh_ .rand(0,100).".".$_tenanh;
-           
-           $anh->move('backend/images/nhanvat',$tenanh);
-           $product->hinh = $tenanh;
-           $product->save();
-        } else {
-            $product->save();
-        }
-        
+        $product = NhanVat::create($request->input());
         return response()->json($product);
     }
 
@@ -77,29 +66,11 @@ class NhanVatController extends Controller
     {
         $product = NhanVat::find($id);
         $product->ten = $request->ten;
-        // $product->loai = $request->loai;
-        // $product->idPhim = $request->idPhim;
-        // $anh = $request->file('hinh');
-        
-        // if($anh && $request->hinh != $product->hinh){
-        //     if(File::exists('backend/images/nhanvat/'.$product->hinh))
-        //         File::delete('backend/images/nhanvat/'.$product->hinh);
-           
-        //     $tenanh = $anh->getClientOriginalName();
-           
-        //     $tenanh_ = explode('.',$tenanh)[0];
-        //     $_tenanh = explode('.',$tenanh)[1];
-        //     $tenanh = $tenanh_ .rand(0,100).".".$_tenanh;
-            
-        //     $anh->move('backend/images/nhanvat',$tenanh);
-        //     $product->anhBia = $tenanh;
-        //     $product->save();
-        // } else {
-        //     $product->save();
-        // }
+        $product->loai = $request->loai;
+        $product->hinh = $request->hinh;
+        $product->idPhim = $request->idPhim;
         $product->save();
         return response()->json($product);
-        // return  \back()->with($product->id);
     }
 
     /**
