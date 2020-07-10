@@ -17,7 +17,8 @@ class NhanVatController extends Controller
      */
     public function index()
     {
-        $products = NhanVat::all();
+        // $products = NhanVat::all();
+        $products = NhanVat::orderBy('id', 'DESC')->get();
         $phim = Phim::all();
         return view('admin.nhanvat.index')->with(['products'=>$products,'phim'=>$phim]);
     }

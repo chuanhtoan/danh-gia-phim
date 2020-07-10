@@ -16,7 +16,8 @@ class TheLoaiController extends Controller
      */
     public function index()
     {
-        $products = TheLoai::all();
+        // $products = TheLoai::all();
+        $products = TheLoai::orderBy('id', 'DESC')->get();
         return view('admin.theloai.index')->with('products', $products);
     }
 

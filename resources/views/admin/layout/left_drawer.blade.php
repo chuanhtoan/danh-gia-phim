@@ -12,6 +12,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- HEADING -->
                 <div class="py-2 drawer-heading">
                     Quản lý Phim
@@ -42,6 +43,44 @@
                         <a href="{{route('nhanvat.index')}}">
                             <i class="material-icons">movies</i>
                             <span class="drawer-menu-text"> Nhân Vật</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- HEADING -->
+                <div class="py-2 drawer-heading">
+                    Quản lý Phim
+                </div>
+                <!-- MENU -->
+                <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
+                    <li class="drawer-menu-item ">
+                        <a href="{{route('nhanvat.index')}}">
+                            <i class="material-icons">movies</i>
+                            <span class="drawer-menu-text"> Bảng Xếp Hạng</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item">
+                        <a href="{{route('phim.index')}}">
+                            <i class="material-icons">local_movies</i>
+                            <span class="drawer-menu-text"> Bài Viết</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item">
+                        <a href="{{route('theloai.index')}}">
+                            <i class="material-icons">dns</i>
+                            <span class="drawer-menu-text"> Đánh Giá</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item ">
+                        <a href="{{route('hangsanxuat.index')}}">
+                            <i class="material-icons">store</i>
+                            <span class="drawer-menu-text"> Báo Cáo</span>
+                        </a>
+                    </li>
+                    <li class="drawer-menu-item ">
+                        <a href="{{route('hangsanxuat.index')}}">
+                            <i class="material-icons">store</i>
+                            <span class="drawer-menu-text"> Tài khoản</span>
                         </a>
                     </li>
                 </ul>

@@ -3,6 +3,10 @@
 <script>
 $(document).ready(function(){
 
+    // Descending ID Table
+    $('#data-table').DataTable().order([ 0, "desc" ]).draw();
+    
+
     //get base URL *********************
     // var url = $('#url').val();
     var url = '/admin/phim';
@@ -183,7 +187,7 @@ $(document).ready(function(){
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
 
                 if (state == "add"){ //if user added a new record
-                    $('#products-list').append(product);
+                    $('#products-list').prepend(product);
                     // alertify
                     alertify.success('Thêm thành công');
                 }else{ //if user updated an existing record
@@ -197,7 +201,6 @@ $(document).ready(function(){
             error: function (data) {
                 $('#ten').addClass('is-invalid');
                 $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
-                console.log(JSON.parse(data.responseText).errors.ten[0]);
                 console.log('Error:', data);
             }
         });

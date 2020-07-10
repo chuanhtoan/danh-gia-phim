@@ -17,7 +17,8 @@ class PhimController extends Controller
      */
     public function index()
     {
-        $products = Phim::all();
+        // $products = Phim::all();
+        $products = Phim::orderBy('id', 'DESC')->get();
         $hangsanxuat = HangSanXuat::all();
         return view('admin.phim.index')->with(['products'=>$products, 'hangsanxuat'=>$hangsanxuat]);
     }

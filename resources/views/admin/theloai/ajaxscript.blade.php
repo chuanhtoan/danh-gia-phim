@@ -3,6 +3,9 @@
 <script>
 $(document).ready(function(){
 
+    // Descending ID Table
+    $('#data-table').DataTable().order([ 0, "desc" ]).draw();
+
     //get base URL *********************
     // var url = $('#url').val();
     var url = '/admin/theloai';
@@ -123,7 +126,7 @@ $(document).ready(function(){
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
                 if (state == "add"){ //if user added a new record
-                    $('#products-list').append(product);
+                    $('#products-list').prepend(product);
                     // alertify
                     alertify.success('Thêm thành công');
                 }else{ //if user updated an existing record

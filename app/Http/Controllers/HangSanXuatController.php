@@ -15,7 +15,8 @@ class HangSanXuatController extends Controller
      */
     public function index()
     {
-        $products = HangSanXuat::all();
+        // $products = HangSanXuat::all();
+        $products = HangSanXuat::orderBy('id', 'DESC')->get();
         return view('admin.hangsanxuat.index')->with('products', $products);
     }
 
