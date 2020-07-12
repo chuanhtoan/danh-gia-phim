@@ -35,7 +35,7 @@ $(document).ready(function(){
                 $('#product_id').val(data.id);
                 $('#ten').val(data.ten);
                 $('#loai').val(data.loai);
-                $(".image-preview").attr('src','{{asset('images/nhanvat/upload')}}/'+data.hinh);
+                $(".image-preview").attr('src','{{asset('images/upload')}}/'+data.hinh);
                 $("#image-input").val(data.hinh);
                 $('#idPhim').val(data.idPhim);
                 $('#btn-save').val("update");
@@ -127,7 +127,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.loai + '</td><td>' 
-                + "<img src='{{asset('images/nhanvat/upload')}}/" + data.hinh + "' class='form-cotrol' width='70' class='img-thumbnail'>"
+                + "<img src='{{asset('images/upload')}}/" + data.hinh + "' class='form-cotrol' width='70' class='img-thumbnail'>"
                 + '</td><td>' + $('#idPhim option:selected').html();
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
@@ -155,7 +155,7 @@ $(document).ready(function(){
     var product_id;
 
     $(document).on('click','.delete-product',function(){
-         product_id = $(this).val();
+        product_id = $(this).val();
         
         // Populate Data in Delete Modal Form
         $.ajax({
@@ -191,6 +191,21 @@ $(document).ready(function(){
                 console.log('Error:', data);
             }
         });
+    });
+
+    // enter key press submit function
+    $(document).keypress(function(e) {
+        // disable form enter key press
+        if (e.which == '13') {
+            e.preventDefault();
+        }
+        // enter key press on modal open
+        if ($("#createEditModal").hasClass('show') && (e.keycode == 13 || e.which == 13)) {
+            var hl = $("#frmProducts").valid();    
+            if(hl){
+                thucHienAjax();
+            }
+        }
     });
     
 });

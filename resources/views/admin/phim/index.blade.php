@@ -98,7 +98,7 @@
 
 {{-- Create Edit Modal --}}
 <div id="createEditModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="createEditModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="createEditModalLabel">Phim</h4>

@@ -1,14 +1,56 @@
 @section('ajax')
 
+{{-- Drag and drop sortable --}}
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+    var table = $("#data-table").DataTable();
+
+    $( "#products-list" ).sortable({
+        items: "tr",
+        cursor: 'move',
+        opacity: 0.6,
+        update: function() {
+            sendOrderToServer();
+        }
+    });
+
+    function sendOrderToServer() {
+        var order = [];
+        var token = $('meta[name="csrf-token"]').attr('content');
+        $('tr.active').each(function(index,element) {
+            order.push({
+                id: $(this).attr('data-id'),
+                position: index+1
+            });
+        });
+
+        $.ajax({
+        type: "POST", 
+        dataType: "json", 
+        url: "{{ url('admin/phim_bangxephang/post-sortable') }}",
+            data: {
+            order: order,
+            _token: token
+        },
+        success: function(response) {
+            if (response.status == "success") {
+                console.log(response);
+            } else {
+                console.log(response);
+            }
+        }
+        });
+    }
+    });
+</script>
+
 <script>
 $(document).ready(function(){
 
-    // Descending ID Table
-    $('#data-table').DataTable().order([ 0, "desc" ]).draw();
-
     //get base URL *********************
-    // var url = $('#url').val();
-    var url = '/admin/theloai';
+    var url = '/admin/phim_bangxephang';
 
 
     //display modal form for creating new product *********************
@@ -16,7 +58,7 @@ $(document).ready(function(){
         $('#btn-save').val("add");
         $('#frmProducts').trigger("reset");
         $('#textUnique').html("");
-        $('#ten').removeClass('is-invalid');
+        $('#idPhim').removeClass('is-invalid');
         $('#createEditModal').modal('show');
     });
 
@@ -26,17 +68,16 @@ $(document).ready(function(){
     $(document).on('click','.open_modal',function(){
         var product_id = $(this).val();
         $('#textUnique').html("");
-        $('#ten').removeClass('is-invalid');
+        $('#idPhim').removeClass('is-invalid');
     
         // Populate Data in Edit Modal Form
         $.ajax({
             type: "GET",
-            url: url + '/' + product_id,
+            url: url + '/show/' + product_id,
             success: function (data) {
-                console.log(data);
                 $('#product_id').val(data.id);
-                $('#ten').val(data.ten);
-                $('#moTa').val(data.moTa);
+                $('#idPhim').val(data.idPhim);
+                $('#hang').val(data.hang);
                 $('#btn-save').val("update");
                 $('#createEditModal').modal('show');
             },
@@ -67,22 +108,16 @@ $(document).ready(function(){
             }
         }, onkeyup: false,
         rules: {
-            ten: {
-                required: true,
-                maxlength: 50
-            },
-            moTa: {
-                maxlength: 300
-            },
+            // ten: {
+            //     required: true,
+            //     maxlength: 50
+            // },
         },
         messages: {
-            ten: {
-                required: 'Bạn phải nhập trường này',
-                maxlength: "Tối đa 50 kí tự"
-            },
-            moTa: {
-                maxlength: "Tối đa 300 kí tự"
-            },
+            // ten: {
+            //     required: 'Bạn phải nhập trường này',
+            //     maxlength: "Tối đa 50 kí tự"
+            // },
         }, errorPlacement: function (err, elemet) {
             err.insertAfter(elemet);    
             err.addClass('invalid-feedback d-inline text-danger');
@@ -100,29 +135,30 @@ $(document).ready(function(){
 
         // e.preventDefault(); 
         var formData = {
-            ten: $('#ten').val(),
-            moTa: $('#moTa').val(),
+            idBangXepHang: $('#idBangXepHang').val(),
+            idPhim: $('#idPhim').val(),
+            hang: $('#hang').val(),
         }
 
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
         var type = "POST"; //for creating new resource
         var product_id = $('#product_id').val();;
-        var my_url = '/admin/theloai';
+        var my_url = '/admin/phim_bangxephang';
 
         if (state == "update"){
             type = "PUT"; //for updating existing resource
             my_url += '/' + product_id;
         }
-        console.log(formData);
+        
         $.ajax({
             type: type,
             url: my_url,
             data: formData,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.moTa;
+                var product = '<tr id="product' + data.id + '"><td>' + data.hang + '</td><td>' 
+                + $('#idPhim option:selected').html();
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
                 if (state == "add"){ //if user added a new record
@@ -138,10 +174,10 @@ $(document).ready(function(){
                 $('#createEditModal').modal('hide');
             },
             error: function (data) {
-                $('#ten').addClass('is-invalid');
-                $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
+                $('#idPhim').addClass('is-invalid');
+                $('#textUnique').html(JSON.parse(data.responseText).errors.idPhim[0]);
                 console.log('Error:', data);
-            }
+            }           
         });
     }
 
@@ -154,17 +190,8 @@ $(document).ready(function(){
         product_id = $(this).val();
         
         // Populate Data in Delete Modal Form
-        $.ajax({
-            type: "GET",
-            url: url + '/' + product_id,
-            success: function (data) {
-                $('#lableXoa').html('Xóa thể loại "' + data.ten + '" ?');
-                $('#deleteModal').modal('show');
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        $('#lableXoa').html('Xóa phim này?');
+        $('#deleteModal').modal('show');
     });
 
     // Delete Data
@@ -188,7 +215,7 @@ $(document).ready(function(){
             }
         });
     });
-    
+
     // enter key press submit function
     $(document).keypress(function(e) {
         // disable form enter key press

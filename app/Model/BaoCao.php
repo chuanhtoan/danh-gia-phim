@@ -8,4 +8,5 @@ class BaoCao extends Model
 {
     protected $table = "BaoCao";
 
+    protected $fillable = ['idPhim','idUser','noiDung','ngay'];
 }

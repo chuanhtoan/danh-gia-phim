@@ -8,7 +8,6 @@ $(document).ready(function(){
     
 
     //get base URL *********************
-    // var url = $('#url').val();
     var url = '/admin/phim';
 
 
@@ -212,7 +211,7 @@ $(document).ready(function(){
     var product_id;
 
     $(document).on('click','.delete-product',function(){
-         var product_id = $(this).val();
+        product_id = $(this).val();
         
         // Populate Data in Delete Modal Form
         $.ajax({
@@ -248,6 +247,21 @@ $(document).ready(function(){
                 console.log('Error:', data);
             }
         });
+    });
+
+    // enter key press submit function
+    $(document).keypress(function(e) {
+        // disable form enter key press
+        if (e.which == '13') {
+            e.preventDefault();
+        }
+        // enter key press on modal open
+        if ($("#createEditModal").hasClass('show') && (e.keycode == 13 || e.which == 13)) {
+            var hl = $("#frmProducts").valid();    
+            if(hl){
+                thucHienAjax();
+            }
+        }
     });
     
 });

@@ -19,7 +19,7 @@ class CreateDanhGiasTable extends Migration
             $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
             $table->foreignId('idUser')->constrained('User')->onDelete('cascade');
             $table->double('diem');
-            $table->string('noiDung');
+            $table->string('noiDung',3000);
             $table->date('ngay')->default(Carbon::now());
             $table->timestamps();
         });

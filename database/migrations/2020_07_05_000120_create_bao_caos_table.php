@@ -18,7 +18,7 @@ class CreateBaoCaosTable extends Migration
             $table->id();
             $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
             $table->foreignId('idUser')->constrained('User')->onDelete('cascade');
-            $table->string('noiDung');
+            $table->string('noiDung',300);
             $table->date('ngay')->default(Carbon::now());
             $table->timestamps();
         });

@@ -8,4 +8,5 @@ class Phim_BangXepHang extends Model
 {
     protected $table = "Phim_BangXepHang";
 
+    protected $fillable = ['idBangXepHang','idPhim','hang'];
 }

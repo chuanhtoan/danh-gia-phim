@@ -8,7 +8,7 @@ $(document).ready(function(){
 
     //get base URL *********************
     // var url = $('#url').val();
-    var url = '/admin/theloai';
+    var url = '/admin/user';
 
 
     //display modal form for creating new product *********************
@@ -16,7 +16,7 @@ $(document).ready(function(){
         $('#btn-save').val("add");
         $('#frmProducts').trigger("reset");
         $('#textUnique').html("");
-        $('#ten').removeClass('is-invalid');
+        $(".image-preview").attr('src','');
         $('#createEditModal').modal('show');
     });
 
@@ -26,7 +26,6 @@ $(document).ready(function(){
     $(document).on('click','.open_modal',function(){
         var product_id = $(this).val();
         $('#textUnique').html("");
-        $('#ten').removeClass('is-invalid');
     
         // Populate Data in Edit Modal Form
         $.ajax({
@@ -34,9 +33,13 @@ $(document).ready(function(){
             url: url + '/' + product_id,
             success: function (data) {
                 console.log(data);
+                $('#createEditModalLabel').html('Chỉnh sửa tài Khoản: "' + data.username + '"');
                 $('#product_id').val(data.id);
-                $('#ten').val(data.ten);
-                $('#moTa').val(data.moTa);
+                $('#username').val(data.username);
+                $('#email').val(data.email);
+                $(".image-preview").attr('src','{{asset('images/upload')}}/'+data.hinh);
+                $("#image-input").val(data.hinh);
+                $('#loai').val(data.loai);
                 $('#btn-save').val("update");
                 $('#createEditModal').modal('show');
             },
@@ -67,21 +70,15 @@ $(document).ready(function(){
             }
         }, onkeyup: false,
         rules: {
-            ten: {
-                required: true,
-                maxlength: 50
-            },
-            moTa: {
-                maxlength: 300
+            email: {
+                maxlength: 50,
+                email: true,
             },
         },
         messages: {
-            ten: {
-                required: 'Bạn phải nhập trường này',
-                maxlength: "Tối đa 50 kí tự"
-            },
-            moTa: {
-                maxlength: "Tối đa 300 kí tự"
+            email: {
+                maxlength: "Tối đa 50 kí tự",
+                email: "Email sai định dạng",
             },
         }, errorPlacement: function (err, elemet) {
             err.insertAfter(elemet);    
@@ -100,15 +97,17 @@ $(document).ready(function(){
 
         // e.preventDefault(); 
         var formData = {
-            ten: $('#ten').val(),
-            moTa: $('#moTa').val(),
+            username: $('#username').val(),
+            email: $('#email').val(),
+            hinh: $('#image-input').val(),
+            loai: $('#loai').val(),
         }
 
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
         var type = "POST"; //for creating new resource
         var product_id = $('#product_id').val();;
-        var my_url = '/admin/theloai';
+        var my_url = '/admin/user';
 
         if (state == "update"){
             type = "PUT"; //for updating existing resource
@@ -121,8 +120,9 @@ $(document).ready(function(){
             data: formData,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.moTa;
+                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.username + '</td><td>' + data.email + '</td><td>' 
+                + "<img src='{{asset('images/upload')}}/" + data.hinh + "' class='form-cotrol' width='70' class='img-thumbnail'>"
+                + '</td><td>' + $('#loai option:selected').html();
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
                 if (state == "add"){ //if user added a new record
@@ -138,15 +138,14 @@ $(document).ready(function(){
                 $('#createEditModal').modal('hide');
             },
             error: function (data) {
-                $('#ten').addClass('is-invalid');
-                $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
+                // $('#textUnique').html(JSON.parse(data.responseText).errors.hinh[0]);
+                $('#textUnique').html(JSON.parse(data.responseText).errors);
                 console.log('Error:', data);
             }
         });
     }
 
 
-    
     // delete product and remove it from TABLE list ***************************
     var product_id;
 
@@ -158,7 +157,7 @@ $(document).ready(function(){
             type: "GET",
             url: url + '/' + product_id,
             success: function (data) {
-                $('#lableXoa').html('Xóa thể loại "' + data.ten + '" ?');
+                $('#lableXoa').html('Xóa tài khoản "' + data.username + '" ?');
                 $('#deleteModal').modal('show');
             },
             error: function (data) {

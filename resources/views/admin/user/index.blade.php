@@ -23,29 +23,24 @@
     <!-- main content -->
     <div class="container-fluid">
         
-        <h2>Nhân Vật</h2>
+        <h2>Tài Khoản</h2>
         <p class="lead">
-            Quản lý thông tin các Nhân Vật.
+            Quản lý thông tin các Tài Khoản.
         </p>
         <hr>
         <div class="card">
             <div class="py-4">
-
-                {{-- Create Button --}}
-                <div class="btn_add">
-                    <button id="btn_add" name="btn_add" class="btn btn-success btn-detail">Add</button>
-                </div>
-
+                
                 {{-- table --}}
                 <div class="table-responsive">
                     <table id="data-table" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th style="min-width: 100px">Tên</th>
-                                <th>Loại</th>
+                                <th style="min-width: 100px">Tên tài Khoản</th>
+                                <th>Email</th>
                                 <th>Hình</th>
-                                <th>Phim</th>
+                                <th>Loại</th>
                                 <th style="min-width: 110px;">Thao Tác</th>
                             </tr>
                         </thead>
@@ -53,10 +48,10 @@
                             @foreach($products as $item)
                                 <tr id="product{{$item->id}}" class="active">
                                     <td>{{$item->id}}</td>
-                                    <td>{{$item->ten}}</td>
-                                    <td>{{$item->loai}}</td>
+                                    <td>{{$item->username}}</td>
+                                    <td>{{$item->email}}</td>
                                     <td><img src="{{asset('images/upload')}}/{{$item->hinh}}" class="form-cotrol" width='70' class='img-thumbnail'></td>
-                                    <td>{{App\Model\Phim::find($item->idPhim)->ten}}</td>
+                                    <td>{{$item->loai}}</td>
                                     <td>
                                         <div style="display: inline-block">
                                             <button class="btn btn-warning btn-detail open_modal" value="{{$item->id}}">Edit</button>
@@ -80,7 +75,7 @@
     <div class="modal-dialog modal-md modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="createEditModalLabel">Nhân Vật</h4>
+                <h4 class="modal-title" id="createEditModalLabel">Chỉnh sửa tài khoản: </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -89,11 +84,9 @@
                     @csrf
                     <input type="hidden" name="class_id" class="class-id" id="class-id">
                     <div class="form-group"> {{--input-group--}}
-                        <label for="ten">Tên:</label>
-                        <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên nhân vật">
-                        <br>
-                        <label for="ten">Loại:</label>
-                        <input type="text" name="loai" id="loai" class="form-control required" placeholder="Loại nhân vật (Nam nữ chính phụ)">
+                        <input type="hidden" name="username" id="username">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" class="form-control required" placeholder="Email tài khoản">
                         <br>
                         <label for="">Hình:</label>
                         <br>
@@ -117,19 +110,17 @@
                             function responsive_filemanager_callback(field_id){
                                 var url=jQuery('#'+field_id).val();
                                 $(".image-preview").attr('src','{{asset('images/upload')}}/'+url);
-                                // parent.$.fancybox.close();
                             }
                         </script>
                         {{-- Chon Hinh --}}
 
                         <br>
-                        <p id="textUnique" class="invalid-feedback d-inline text-danger"></p>
+                        <p id="textUnique2" class="invalid-feedback d-inline text-danger"></p>
                         <br>
-                        <label for="">Phim:</label>
-                        <select name="idPhim" id="idPhim" class="form-control">
-                            @foreach ($phim as $item)
-                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                            @endforeach
+                        <label for="loai">Loại tài khoản:</label>
+                        <select name="loai" id="loai" class="form-control">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
                         </select>
                     </div>
                 </form>
@@ -172,7 +163,7 @@
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 
     {{-- ajax thêm xóa sửa --}}
-    @include('admin.nhanvat.ajaxscript')
+    @include('admin.user.ajaxscript')
     @yield('ajax')
 
     {{-- alertify --}}

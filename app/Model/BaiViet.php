@@ -8,6 +8,8 @@ class BaiViet extends Model
 {
     protected $table = "BaiViet";
 
+    protected $fillable = ['idPhim','idUser','tieuDe','noiDung','ngay'];
+
     public function user()
     {
         return $this->belongsTo('App\User','id','idUser');

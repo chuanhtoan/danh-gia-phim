@@ -14,9 +14,10 @@ class CreatePhimBangXepHangsTable extends Migration
     public function up()
     {
         Schema::create('Phim_BangXepHang', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('idBangXepHang')->constrained('BangXepHang')->onDelete('cascade');
-            $table->foreignId('idPhim')->constrained('BangXepHang')->onDelete('cascade');
-            $table->integer('Hang')->unique();
+            $table->foreignId('idPhim')->constrained('Phim')->onDelete('cascade');
+            $table->integer('hang')->default(0);
             $table->timestamps();
         });
     }

@@ -2,8 +2,6 @@
 
 @section('above_head')
 
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
-
     {{-- style button thêm --}}
     <style>
         .btn_add {
@@ -23,9 +21,9 @@
     <!-- main content -->
     <div class="container-fluid">
         
-        <h2>Nhân Vật</h2>
+        <h2>Bảng Xếp Hạng</h2>
         <p class="lead">
-            Quản lý thông tin các Nhân Vật.
+            Quản lý thông tin các bảng xếp hạng.
         </p>
         <hr>
         <div class="card">
@@ -42,10 +40,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th style="min-width: 100px">Tên</th>
-                                <th>Loại</th>
-                                <th>Hình</th>
-                                <th>Phim</th>
+                                <th>Tên Bảng Xếp Hạng</th>
+                                <th>Tài Khoản</th>
                                 <th style="min-width: 110px;">Thao Tác</th>
                             </tr>
                         </thead>
@@ -54,11 +50,10 @@
                                 <tr id="product{{$item->id}}" class="active">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->ten}}</td>
-                                    <td>{{$item->loai}}</td>
-                                    <td><img src="{{asset('images/upload')}}/{{$item->hinh}}" class="form-cotrol" width='70' class='img-thumbnail'></td>
-                                    <td>{{App\Model\Phim::find($item->idPhim)->ten}}</td>
+                                    <td>{{App\User::find($item->idUser)->username}}</td>
                                     <td>
                                         <div style="display: inline-block">
+                                            <a href="{{route('phim_bangxephang.index',$item->id)}}" class="btn btn-primary" style="color: white">Show</a>
                                             <button class="btn btn-warning btn-detail open_modal" value="{{$item->id}}">Edit</button>
                                             <button class="btn btn-danger delete-product" value="{{$item->id}}">Delete</button>
                                         </div>
@@ -80,55 +75,22 @@
     <div class="modal-dialog modal-md modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="createEditModalLabel">Nhân Vật</h4>
+                <h4 class="modal-title" id="createEditModalLabel">Bảng Xếp Hạng</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="frmProducts" name="frmProducts" class="form-horizontal classFormUpdate validate-form" novalidate="" enctype="multipart/form-data">
-                    @csrf
+                <form id="frmProducts" name="frmProducts" class="form-horizontal classFormUpdate validate-form" novalidate="">
                     <input type="hidden" name="class_id" class="class-id" id="class-id">
                     <div class="form-group"> {{--input-group--}}
                         <label for="ten">Tên:</label>
-                        <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên nhân vật">
-                        <br>
-                        <label for="ten">Loại:</label>
-                        <input type="text" name="loai" id="loai" class="form-control required" placeholder="Loại nhân vật (Nam nữ chính phụ)">
-                        <br>
-                        <label for="">Hình:</label>
-                        <br>
-
-                        {{-- Chon Hinh --}}
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous" />
-                        
-                        <a href="/plugins/filemanager/dialog.php?relative_url=1&type=1&field_id=image-input" class="btn btn-primary iframe-btn" type="button">Chọn</a>
-                        <input type="hidden" id="image-input">
-                        <img style="width:20%;" id="image-preview" class="image-preview" src="">
-
-                        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
-                        <script>
-                            $('.iframe-btn').fancybox({
-                                'width'     : 900,
-                                'height'    : 600,
-                                'type'      : 'iframe',
-                                'autoScale' : false
-                            });
-                            function responsive_filemanager_callback(field_id){
-                                var url=jQuery('#'+field_id).val();
-                                $(".image-preview").attr('src','{{asset('images/upload')}}/'+url);
-                                // parent.$.fancybox.close();
-                            }
-                        </script>
-                        {{-- Chon Hinh --}}
-
-                        <br>
+                        <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên bảng xếp hạng">
                         <p id="textUnique" class="invalid-feedback d-inline text-danger"></p>
                         <br>
-                        <label for="">Phim:</label>
-                        <select name="idPhim" id="idPhim" class="form-control">
-                            @foreach ($phim as $item)
-                            <option value="{{$item->id}}">{{$item->ten}}</option>
+                        <label for="idUser">Tài khoản:</label>
+                        <select name="idUser" id="idUser" class="form-control">
+                            @foreach ($user as $item)
+                            <option value="{{$item->id}}">{{$item->username}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -172,7 +134,7 @@
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 
     {{-- ajax thêm xóa sửa --}}
-    @include('admin.nhanvat.ajaxscript')
+    @include('admin.bangxephang.ajaxscript')
     @yield('ajax')
 
     {{-- alertify --}}

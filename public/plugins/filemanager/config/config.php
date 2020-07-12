@@ -76,7 +76,7 @@ $config = array(
     | with start and final /
     |
     */
-    'upload_dir' => '/../images/nhanvat/upload/',
+    'upload_dir' => '/../images/upload/',
     /*
     |--------------------------------------------------------------------------
     | relative path from filemanager folder to upload folder
@@ -85,7 +85,7 @@ $config = array(
     | with final /
     |
     */
-    'current_path' => '../../images/nhanvat/upload/',
+    'current_path' => '../../images/upload/',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_base_path' => '../../images/nhanvat/thumbs/',
+    'thumbs_base_path' => '../../images/thumbs/',
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_upload_dir' => '../images/nhanvat/thumbs/',
+    'thumbs_upload_dir' => '../images/thumbs/',
 
 
     /*

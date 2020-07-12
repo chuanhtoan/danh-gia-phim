@@ -54,31 +54,31 @@
                 <!-- MENU -->
                 <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
                     <li class="drawer-menu-item ">
-                        <a href="{{route('nhanvat.index')}}">
+                        <a href="{{route('bangxephang.index')}}">
                             <i class="material-icons">movies</i>
                             <span class="drawer-menu-text"> Bảng Xếp Hạng</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="{{route('phim.index')}}">
+                        <a href="{{route('baiviet.index')}}">
                             <i class="material-icons">local_movies</i>
                             <span class="drawer-menu-text"> Bài Viết</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="{{route('theloai.index')}}">
+                        <a href="{{route('danhgia.index')}}">
                             <i class="material-icons">dns</i>
                             <span class="drawer-menu-text"> Đánh Giá</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="{{route('hangsanxuat.index')}}">
+                        <a href="{{route('baocao.index')}}">
                             <i class="material-icons">store</i>
                             <span class="drawer-menu-text"> Báo Cáo</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="{{route('hangsanxuat.index')}}">
+                        <a href="{{route('user.index')}}">
                             <i class="material-icons">store</i>
                             <span class="drawer-menu-text"> Tài khoản</span>
                         </a>

@@ -8,4 +8,5 @@ class DanhGia extends Model
 {
     protected $table = "DanhGia";
 
+    protected $fillable = ['idPhim','idUser','diem','noiDung','ngay'];
 }
