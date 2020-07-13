@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Frontend
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/','PageController@index');
+
+Route::get('test', function () {
+    return view('admin.phim.multiselect');
 });
 
 //Backend

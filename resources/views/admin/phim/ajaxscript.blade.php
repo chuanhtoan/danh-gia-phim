@@ -11,13 +11,29 @@ $(document).ready(function(){
     var url = '/admin/phim';
 
 
+
+    // theloai
+    var theLoaiIDs = [];
+    $('.theloai_checkbox').click(function() {
+        if ($(this).is(':checked'))
+            theLoaiIDs.push($(this).val());
+        else
+            theLoaiIDs.splice(theLoaiIDs.indexOf($(this).val()), 1);
+    });
+    
+
+
     //display modal form for creating new product *********************
     $('#btn_add').click(function(){
         $('#btn-save').val("add");
         $('#frmProducts').trigger("reset");
-        $('#textUnique').html("");
+        $('#tenError').html("");
+        $('#theLoaiError').html("");
         $('#ten').removeClass('is-invalid');
         $('#createEditModal').modal('show');
+
+        // theloai
+        theLoaiIDs = [];
     });
 
 
@@ -25,9 +41,15 @@ $(document).ready(function(){
     //display modal form for product EDIT ***************************
     $(document).on('click','.open_modal',function(){
         var product_id = $(this).val();
-        $('#textUnique').html("");
+        $('#tenError').html("");
+        $('#theLoaiError').html("");
         $('#ten').removeClass('is-invalid');
-    
+
+        // theloai
+        theLoaiIDs = $('.hidden_'+product_id).map((_,el) => el.value).get();
+
+        console.log(theLoaiIDs);
+
         // Populate Data in Edit Modal Form
         $.ajax({
             type: "GET",
@@ -47,6 +69,13 @@ $(document).ready(function(){
                 $('#ngayCongChieu').val(data.ngayCongChieu);
                 $('#trailer').val(data.trailer);
                 $('#idHangSanXuat').val(data.idHangSanXuat);
+
+                // Check the loai checkbox
+                $('input[type=checkbox]').prop('checked',false);
+                theLoaiIDs.forEach(element => {
+                    $("#theloai"+element).prop("checked", true);
+                });
+
                 $('#btn-save').val("update");
                 $('#createEditModal').modal('show');
             },
@@ -61,9 +90,12 @@ $(document).ready(function(){
     // create new product / update existing product ***************************
     $("#btn-save").click(function(){
         var hl = $("#frmProducts").valid();    
-        if(hl){
-            thucHienAjax();
-        }
+        if(hl)
+            if(theLoaiIDs.length > 0){
+                $('#theLoaiError').html("");
+                thucHienAjax();
+            }
+            else $('#theLoaiError').html("Phải chọn ít nhất 1 thể loại");
     });
 
     $("#frmProducts").validate({
@@ -150,6 +182,7 @@ $(document).ready(function(){
             ngayCongChieu: $('#ngayCongChieu').val(),
             trailer: $('#trailer').val(),
             idHangSanXuat: $('#idHangSanXuat').val(),
+            theLoaiIDs: theLoaiIDs,
         }
 
         //used to determine the http verb to use [add=POST], [update=PUT]
@@ -169,16 +202,29 @@ $(document).ready(function(){
             data: formData,
             dataType: 'json',
             success: function (data) {
+                console.log(data);
+
                 // Tom tat phim khong null va limit 30 ki tu
                 var tomTat = "";
                 if(data.tomTat!=null)
                     if(data.tomTat.length>30) tomTat = data.tomTat.substring(0,30)+'...'; 
                     else tomTat = data.tomTat;
 
+                // Lay chuoi the loai
+                var theloaiarray = "";
+                var hiddenvalue = "";
+                data.tlarray.forEach(element => {
+                    theloaiarray += element + ", ";
+                });
+                data.tlarray_id.forEach(element => {
+                    hiddenvalue += '<input type="hidden" class="hiddenvalue hidden_'+data.id+'" value="'+element+'">';
+                });
+
                 // Trailer phim khac rong va khac null
                 var trailer = (data.trailer!="" && data.trailer!=null)?'<a href="{{' + data.trailer + '}}">Link</a>':"";
 
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.kieu + '</td><td>' + tomTat
+                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.kieu + '</td><td>' + tomTat + '</td><td>' 
+                            + theloaiarray + hiddenvalue
                             + '</td><td>' + data.soTap + '</td><td>' + data.thoiLuong + '</td><td>' + data.nguon + '</td><td>' + data.ngonNgu + '</td><td>' + data.phanLoaiDoTuoi + '</td><td>' + data.trangThai + '</td><td>' + data.ngayCongChieu + '</td><td>' 
                             + $('#idHangSanXuat option:selected').html() + '</td><td>' 
                             + trailer + '</td><td>' + '';
@@ -199,7 +245,7 @@ $(document).ready(function(){
             },
             error: function (data) {
                 $('#ten').addClass('is-invalid');
-                $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
+                $('#tenError').html(JSON.parse(data.responseText).errors.ten[0]);
                 console.log('Error:', data);
             }
         });

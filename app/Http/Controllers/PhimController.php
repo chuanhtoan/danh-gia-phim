@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Phim;
 use App\Model\HangSanXuat;
+use App\Model\TheLoai;
+use App\Model\Phim_TheLoai;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +22,9 @@ class PhimController extends Controller
         // $products = Phim::all();
         $products = Phim::orderBy('id', 'DESC')->get();
         $hangsanxuat = HangSanXuat::all();
-        return view('admin.phim.index')->with(['products'=>$products, 'hangsanxuat'=>$hangsanxuat]);
+        $theloai = TheLoai::all();
+        $phim_theloais = Phim_TheLoai::all();
+        return view('admin.phim.index')->with(['products'=>$products, 'hangsanxuat'=>$hangsanxuat,'theloai'=>$theloai,'phim_theloais'=>$phim_theloais]);
     }
 
     /**
@@ -41,6 +45,14 @@ class PhimController extends Controller
         ]);
 
         $product = Phim::create($request->input());
+
+        foreach ($request->theLoaiIDs as $idTheLoai) {  
+            $phim_theloai = new Phim_TheLoai();
+            $phim_theloai->idPhim = $product->id;
+            $phim_theloai->idTheLoai = $idTheLoai;
+            $phim_theloai->save();
+        }
+
         return response()->json($product);
     }
 
@@ -89,6 +101,30 @@ class PhimController extends Controller
         $product->trailer = $request->trailer;
         $product->idHangSanXuat = $request->idHangSanXuat;
         $product->save();
+
+
+
+        // Gui them array the loai vao file json
+        // $theloai = TheLoai::all();
+        $tlarray = array();
+        foreach ($request->theLoaiIDs as $tl) {
+            $tenTL = TheLoai::find($tl);
+            array_push($tlarray, $tenTL->ten);
+        }
+        $product['tlarray'] = $tlarray;
+        $product['tlarray_id'] = $request->theLoaiIDs;
+
+
+        $phim_theloai = DB::table('Phim_TheLoai')->where('idPhim',$id)->delete();
+        foreach ($request->theLoaiIDs as $idTheLoai) {  
+            $phim_theloai = new Phim_TheLoai();
+            $phim_theloai->idPhim = $product->id;
+            $phim_theloai->idTheLoai = $idTheLoai;
+            $phim_theloai->save();
+        }
+
+
+
         return response()->json($product);
     }
 

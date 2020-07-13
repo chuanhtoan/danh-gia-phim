@@ -10,6 +10,44 @@
             margin-top: 1px;
             margin-bottom: 7px;
         }
+
+        /* Checkboxs the loai */
+        /* Hiding the checkbox, but allowing it to be focused */
+        .badgebox
+        {
+            opacity: 0;
+        }
+
+        .badgebox + .badge
+        {
+            /* Move the check mark away when unchecked */
+            text-indent: -999999px;
+            /* Makes the badge's width stay the same checked and unchecked */
+            width: 27px;
+        }
+
+        .badgebox:focus + .badge
+        {
+            /* Set something to make the badge looks focused */
+            /* This really depends on the application, in my case it was: */
+            
+            /* Adding a light border */
+            box-shadow: inset 0px 0px 5px;
+            /* Taking the difference out of the padding */
+        }
+
+        .badgebox:checked + .badge
+        {
+            /* Move the check mark back when checked */
+            text-indent: 0;
+        }
+
+        /* truncate the loai */
+        /* .truncate {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        } */
     </style>
 
 @endsection
@@ -43,6 +81,7 @@
                                 <th style="min-width: 100px">Tên</th>
                                 <th>Kiểu</th>
                                 <th>Tóm Tắt</th>
+                                <th>Thể Loại</th>
                                 <th>Số Tập</th>
                                 <th>Thời Lượng</th>
                                 <th>Nguồn</th>
@@ -63,6 +102,20 @@
                                     <td>{{$item->ten}}</td>
                                     <td>{{$item->kieu}}</td>
                                     <td>{{Str::limit($item->tomTat, 30)}}</td>
+                                    <td>
+                                        @foreach ($phim_theloais as $phim_theloai)
+                                            @if ($phim_theloai->idPhim == $item->id)
+
+                                                @foreach ($theloai as $tl)
+                                                    @if ($tl->id == $phim_theloai->idTheLoai)
+                                                        {{$tl->ten}},
+                                                        <input type="hidden" class="hiddenvalue hidden_{{$item->id}}" value="{{$tl->id}}">
+                                                    @endif
+                                                @endforeach
+
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td>{{$item->soTap}}</td>
                                     <td>{{$item->thoiLuong}}</td>
                                     <td>{{$item->nguon}}</td>
@@ -110,8 +163,8 @@
                     <input type="hidden" name="class_id" class="class-id" id="class-id">
                     <div class="form-group"> {{--input-group--}}
                         <label for="ten">Tên:</label>
-                        <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên thể loại">
-                        <p id="textUnique" class="invalid-feedback d-inline text-danger"></p>
+                        <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên phim">
+                        <p id="tenError" class="invalid-feedback d-inline text-danger"></p>
                         <br>
                         <label for="">Kiểu:</label>
                         <select name="kieu" id="kieu" class="form-control">
@@ -122,6 +175,17 @@
                         <br>
                         <label for="">Tóm tắt:</label>
                         <textarea type="textarea" name="tomTat" id="tomTat" class="form-control" placeholder="Tóm tắt phim" rows="4"></textarea>
+                        <br>
+                        <label for="">Thể loại:</label>
+                        <div>
+                            @foreach ($theloai as $item)
+                                <label for="theloai{{$item->id}}" class="btn btn-info">{{$item->ten}}
+                                    <input type="checkbox" id="theloai{{$item->id}}" value="{{$item->id}}" class="badgebox form-control theloai_checkbox">
+                                    <span class="badge">&check;</span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <p id="theLoaiError" class="invalid-feedback d-inline text-danger"></p>
                         <br>
                         <label for="">Số tập:</label>
                         <input type="number" min="1" value="1" name="soTap" id="soTap" class="form-control">
