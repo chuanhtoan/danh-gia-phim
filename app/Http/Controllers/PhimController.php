@@ -46,6 +46,18 @@ class PhimController extends Controller
 
         $product = Phim::create($request->input());
 
+
+        // Gui them array the loai vao file json
+        $tlarray = array();
+        foreach ($request->theLoaiIDs as $tl) {
+            $tenTL = TheLoai::find($tl);
+            array_push($tlarray, $tenTL->ten);
+        }
+        $product['tlarray'] = $tlarray;
+        $product['tlarray_id'] = $request->theLoaiIDs;
+        
+
+        // Them bang phim_theloai
         foreach ($request->theLoaiIDs as $idTheLoai) {  
             $phim_theloai = new Phim_TheLoai();
             $phim_theloai->idPhim = $product->id;
@@ -100,9 +112,10 @@ class PhimController extends Controller
         $product->diemTrungBinh = $request->diemTrungBinh;
         $product->trailer = $request->trailer;
         $product->idHangSanXuat = $request->idHangSanXuat;
+        $product->hinh = $request->hinh;
         $product->save();
 
-
+        
 
         // Gui them array the loai vao file json
         // $theloai = TheLoai::all();
@@ -113,6 +126,7 @@ class PhimController extends Controller
         }
         $product['tlarray'] = $tlarray;
         $product['tlarray_id'] = $request->theLoaiIDs;
+        
 
 
         $phim_theloai = DB::table('Phim_TheLoai')->where('idPhim',$id)->delete();

@@ -104,4 +104,28 @@ class DanhGiaController extends Controller
         $product = DanhGia::destroy($product_id);
         return response()->json($product);
     }
+
+    public function postDanhgia($id,Request $request)
+    {
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'noiDung' => 'required',
+            'rating3' => 'required',
+        ],
+        [
+            'noiDung.required' => 'Bạn chưa nhập nội dung đánh giá',
+            'rating3.required' => 'Bạn chưa cho điểm',
+        ]);
+
+        $danhgia = new DanhGia;
+        $danhgia->idPhim = $id;
+        $danhgia->idUser = 1; // Lay user bang Auth::user()->idate
+        $danhgia->diem = $request->rating3;
+        $danhgia->noiDung = $request->noiDung;
+        $danhgia->ngay = date('Y/m/d');
+        $danhgia->save();
+
+        return redirect("phim/$id/")->with('thongbao','Gửi báo cáo thành công');
+    }
 }

@@ -41,13 +41,6 @@
             /* Move the check mark back when checked */
             text-indent: 0;
         }
-
-        /* truncate the loai */
-        /* .truncate {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-        } */
     </style>
 
 @endsection
@@ -78,6 +71,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Hình</th>
                                 <th style="min-width: 100px">Tên</th>
                                 <th>Kiểu</th>
                                 <th>Tóm Tắt</th>
@@ -99,6 +93,7 @@
                             @foreach($products as $item)
                                 <tr id="product{{$item->id}}" class="active">
                                     <td>{{$item->id}}</td>
+                                    <td><img src="{{asset('images/upload')}}/{{$item->hinh}}" class="form-cotrol" width='70' class='img-thumbnail'></td>
                                     <td>{{$item->ten}}</td>
                                     <td>{{$item->kieu}}</td>
                                     <td>{{Str::limit($item->tomTat, 30)}}</td>
@@ -165,6 +160,36 @@
                         <label for="ten">Tên:</label>
                         <input type="text" name="ten" id="ten" class="form-control required" placeholder="Tên phim">
                         <p id="tenError" class="invalid-feedback d-inline text-danger"></p>
+                        <br>
+
+                        <label for="">Hình:</label>
+                        <br>
+
+                        {{-- Chon Hinh --}}
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous" />
+                        
+                        <a href="/plugins/filemanager/dialog.php?relative_url=1&type=1&field_id=image-input" class="btn btn-primary iframe-btn" type="button">Chọn</a>
+                        <input type="hidden" id="image-input">
+                        <img style="width:20%;" id="image-preview" class="image-preview" src="">
+
+                        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+                        <script>
+                            $('.iframe-btn').fancybox({
+                                'width'     : 900,
+                                'height'    : 600,
+                                'type'      : 'iframe',
+                                'autoScale' : false
+                            });
+                            function responsive_filemanager_callback(field_id){
+                                var url=jQuery('#'+field_id).val();
+                                $(".image-preview").attr('src','{{asset('images/upload')}}/'+url);
+                            }
+                        </script>
+                        {{-- Chon Hinh --}}
+
+                        <br>
+                        <p id="textUnique" class="invalid-feedback d-inline text-danger"></p>
                         <br>
                         <label for="">Kiểu:</label>
                         <select name="kieu" id="kieu" class="form-control">

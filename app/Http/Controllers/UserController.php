@@ -74,4 +74,39 @@ class UserController extends Controller
         $product = User::destroy($product_id);
         return response()->json($product);
     }
+
+    public function getRegister()
+    {
+        return view('admin.register');
+    }
+
+    public function postRegister(Request $request)
+    {
+        $this->validate($request,[
+            'username' => 'required|unique:User,username|min:3',
+            'email' => 'required|email',
+            'password' => 'required|min:3|max:32',
+            'passwordAgain' => 'required|same:password'
+        ],[
+            'username.required' => 'Bạn chưa nhập tên đăng nhập',
+            'username.unique' => 'Tên đăng nhập đã tồn tại',
+            'username.min' => 'Tên đăng nhập phải có ít nhất 3 ký tự',
+            'email.required' => 'Bạn chưa nhập email',
+            'email.email' => 'Email sai định dạng',
+            'password.required' => 'Bạn chưa nhập mật khẩu',
+            'password.min' => 'Mật khẩu phải có ít nhất 3 ký tự',
+            'password.max' => 'Mật khẩu có tối đa 32 ký tự',
+            'passwordAgain.required' => 'Bạn chưa nhập lại mật khẩu',
+            'passwordAgain.same' => 'Mật khẩu nhập lại chưa khớp',
+        ]);
+
+        $user = new User;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->loai = 'user';
+        $user->save();
+
+        return redirect('/');
+    }
 }

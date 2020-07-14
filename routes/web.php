@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 //Frontend
 Route::get('/','PageController@index');
 
-Route::get('test', function () {
-    return view('admin.phim.multiselect');
-});
+Route::get('register','UserController@getRegister');
+Route::post('register','UserController@postRegister');
+
+Route::get('phim/{phim_id}','PageController@show');
+Route::post('baoCao/{id}','BaoCaoController@postBaoCao');
+Route::post('danhgia/{id}','DanhGiaController@postDanhgia');
 
 //Backend
 

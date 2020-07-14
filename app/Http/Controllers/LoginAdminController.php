@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class LoginAdminController extends Controller
 {
@@ -17,7 +19,9 @@ class LoginAdminController extends Controller
          'password' => $request->password
       ];
 
-      if(Auth::guard('admin')->attempt($arr)){
+      $user = DB::table('User')->where('username',$request->username)->first();
+
+      if(Auth::guard('admin')->attempt($arr) && $user->loai == 'admin'){
          return \redirect('/admin');
       }else{
          return view('admin.login')->with(['error'=>true]);

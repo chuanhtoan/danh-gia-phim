@@ -15,7 +15,7 @@ class BangXepHangController extends Controller
      */
     public function index()
     {
-        $products = BangXepHang::all();
+        $products = BangXepHang::orderBy('id', 'DESC')->get();
         $user = User::all();
         return view('admin.bangxephang.index')->with(['products'=>$products,'user'=>$user]);
     }

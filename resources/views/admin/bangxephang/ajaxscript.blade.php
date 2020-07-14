@@ -116,7 +116,8 @@ $(document).ready(function(){
             success: function (data) {
                 var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' 
                 + $('#idUser option:selected').html();
-                product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
+                product += '<td><a href="/admin/phim_bangxephang/' + data.id + '" class="btn btn-primary" style="color: white">Show</a>';
+                product += '<button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
                 if (state == "add"){ //if user added a new record
                     $('#products-list').prepend(product);

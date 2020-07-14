@@ -8,7 +8,7 @@ class Phim extends Model
 {
     protected $table = "Phim";
 
-    protected $fillable = ['ten','kieu','tomTat','soTap','thoiLuong','nguon','ngonNgu','phanLoaiDoTuoi','trangThai','ngayCongChieu','diemTrungBinh','trailer','idHangSanXuat'];
+    protected $fillable = ['ten','kieu','tomTat','soTap','thoiLuong','nguon','ngonNgu','phanLoaiDoTuoi','trangThai','ngayCongChieu','diemTrungBinh','trailer','idHangSanXuat','hinh'];
 
     public function TheLoai()
     {
@@ -38,10 +38,5 @@ class Phim extends Model
     public function BangXepHang()
     {
         return $this->belongsToMany('App\Model\BangXepHang', 'Phim_BangXepHang','idPhim', 'idBangXepHang');
-    }
-
-    public function HinhGioiThieu()
-    {
-        return $this->hasMany('App\Model\HinhGioiThieu', 'idPhim', 'id');
     }
 }

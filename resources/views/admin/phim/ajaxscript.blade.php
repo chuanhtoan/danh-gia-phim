@@ -29,6 +29,8 @@ $(document).ready(function(){
         $('#frmProducts').trigger("reset");
         $('#tenError').html("");
         $('#theLoaiError').html("");
+        $('#textUnique').html("");
+        $(".image-preview").attr('src','');
         $('#ten').removeClass('is-invalid');
         $('#createEditModal').modal('show');
 
@@ -44,6 +46,7 @@ $(document).ready(function(){
         $('#tenError').html("");
         $('#theLoaiError').html("");
         $('#ten').removeClass('is-invalid');
+        $('#textUnique').html("");
 
         // theloai
         theLoaiIDs = $('.hidden_'+product_id).map((_,el) => el.value).get();
@@ -69,6 +72,8 @@ $(document).ready(function(){
                 $('#ngayCongChieu').val(data.ngayCongChieu);
                 $('#trailer').val(data.trailer);
                 $('#idHangSanXuat').val(data.idHangSanXuat);
+                $(".image-preview").attr('src','{{asset('images/upload')}}/'+data.hinh);
+                $("#image-input").val(data.hinh);
 
                 // Check the loai checkbox
                 $('input[type=checkbox]').prop('checked',false);
@@ -91,11 +96,19 @@ $(document).ready(function(){
     $("#btn-save").click(function(){
         var hl = $("#frmProducts").valid();    
         if(hl)
-            if(theLoaiIDs.length > 0){
+            if(theLoaiIDs.length > 0 && $('#image-input').val()!=""){
                 $('#theLoaiError').html("");
+                $('#textUnique').html("");
                 thucHienAjax();
             }
-            else $('#theLoaiError').html("Phải chọn ít nhất 1 thể loại");
+            else if(theLoaiIDs.length == 0){
+                $('#textUnique').html("");
+                $('#theLoaiError').html("Phải chọn ít nhất 1 thể loại");
+            }
+            else{
+                $('#theLoaiError').html("");
+                $('#textUnique').html("Bắt buộc phải chọn hình");
+            }
     });
 
     $("#frmProducts").validate({
@@ -183,7 +196,10 @@ $(document).ready(function(){
             trailer: $('#trailer').val(),
             idHangSanXuat: $('#idHangSanXuat').val(),
             theLoaiIDs: theLoaiIDs,
+            hinh: $('#image-input').val(),
         }
+
+        console.log(formData);
 
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
@@ -202,7 +218,6 @@ $(document).ready(function(){
             data: formData,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
 
                 // Tom tat phim khong null va limit 30 ki tu
                 var tomTat = "";
@@ -223,7 +238,9 @@ $(document).ready(function(){
                 // Trailer phim khac rong va khac null
                 var trailer = (data.trailer!="" && data.trailer!=null)?'<a href="{{' + data.trailer + '}}">Link</a>':"";
 
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' + data.kieu + '</td><td>' + tomTat + '</td><td>' 
+                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' 
+                            + "<img src='{{asset('images/upload')}}/" + data.hinh + "' class='form-cotrol' width='70' class='img-thumbnail'>"
+                            + '</td><td>' + data.ten + '</td><td>' + data.kieu + '</td><td>' + tomTat + '</td><td>' 
                             + theloaiarray + hiddenvalue
                             + '</td><td>' + data.soTap + '</td><td>' + data.thoiLuong + '</td><td>' + data.nguon + '</td><td>' + data.ngonNgu + '</td><td>' + data.phanLoaiDoTuoi + '</td><td>' + data.trangThai + '</td><td>' + data.ngayCongChieu + '</td><td>' 
                             + $('#idHangSanXuat option:selected').html() + '</td><td>' 

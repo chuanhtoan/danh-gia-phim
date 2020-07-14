@@ -6,26 +6,6 @@
                 <i class="icon-lightbulb"></i>
                 <span>Tip: You can put a comment, tip or announcement link here!</span>
             </div><!-- .uk-width-medium-7-10 .uk-hidden-small -->
-            
-            <div class="uk-width-medium-3-10">
-                <div class="uk-text-right">
-                    <a href="#" title="Follow us on Facebook!" target="_blank">
-                        <i class="icon-facebook-squared"></i>
-                    </a>
-                    
-                    <a href="#" title="Follow us on Twitter!" target="_blank">
-                        <i class="icon-twitter-squared"></i>
-                    </a>
-                    
-                    <a href="#" title="Follow us on Google Plus!" target="_blank">
-                        <i class="icon-gplus-squared"></i>
-                    </a>
-                    
-                    <a href="#" title="Follow our Feed!" target="_blank">
-                        <i class="icon-rss-squared"></i>
-                    </a>
-                </div><!-- .uk-text-right -->
-            </div><!-- .uk-width-medium-3-10 -->
         </div><!-- .uk-grid .uk-grid-small -->
     </div><!-- .topbar -->	
     
@@ -43,8 +23,8 @@
     
     <div class="navbar">
         <ul>
-            <li><a href="index.html"><i class="icon-home"></i> Home</a></li>
-            <li><a href="page.html"><i class="icon-star"></i> Page</a></li>
+            <li><a href="/"><i class="icon-home"></i> Trang Chủ</a></li>
+            <li><a href="/bangxephang"><i class="icon-star"></i> Bảng Xếp Hạng</a></li>
             <li class="active">
                 <a href="#"><i class="icon-list-bullet"></i> Series</a>
                 <ul>

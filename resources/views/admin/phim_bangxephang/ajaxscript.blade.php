@@ -49,6 +49,10 @@
 <script>
 $(document).ready(function(){
 
+    // tang hang modal them
+    var table = $("#data-table").DataTable();
+    var currentrows = table.rows().count()+1;
+
     //get base URL *********************
     var url = '/admin/phim_bangxephang';
 
@@ -58,6 +62,7 @@ $(document).ready(function(){
         $('#btn-save').val("add");
         $('#frmProducts').trigger("reset");
         $('#textUnique').html("");
+        $('#hang').val(currentrows);
         $('#idPhim').removeClass('is-invalid');
         $('#createEditModal').modal('show');
     });
@@ -162,9 +167,11 @@ $(document).ready(function(){
                 product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
                 if (state == "add"){ //if user added a new record
-                    $('#products-list').prepend(product);
+                    $('#products-list').append(product);
                     // alertify
                     alertify.success('Thêm thành công');
+                    // tang hang modal them
+                    currentrows++;
                 }else{ //if user updated an existing record
                     $("#product" + product_id).replaceWith( product );
                     // alertify

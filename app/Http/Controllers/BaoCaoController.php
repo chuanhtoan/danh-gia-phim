@@ -78,4 +78,25 @@ class BaoCaoController extends Controller
         $product = BaoCao::destroy($product_id);
         return response()->json($product);
     }
+
+    public function postBaoCao($id,Request $request)
+    {
+        // Kiem tra unique
+        $this->validate($request,
+        [
+            'noiDung' => 'required',
+        ],
+        [
+            'noiDung.required' => 'Bạn chưa nhập nội dung báo cáo',
+        ]);
+
+        $baocao = new BaoCao;
+        $baocao->idPhim = $id;
+        $baocao->idUser = 1; // Lay user bang Auth::user()->idate
+        $baocao->noiDung = $request->noiDung;
+        $baocao->ngay = date('Y/m/d');
+        $baocao->save();
+
+        return redirect("phim/$id/")->with('thongbao','Gửi báo cáo thành công');
+    }
 }

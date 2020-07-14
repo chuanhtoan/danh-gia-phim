@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
 		<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
 		<script src="{{asset('frontend/js/uikit.min.js')}}"></script>
-		<script src="{{asset('frontend/js/fontawesome-all.min.js')}}"></script>
+		<script src="{{asset('frontend/js/fontawesome.min.js')}}"></script>
 		<script src="{{asset('frontend/js/glide.min.js')}}"></script>
 		<script src="{{asset('frontend/js/site-scripts.js')}}"></script>
         

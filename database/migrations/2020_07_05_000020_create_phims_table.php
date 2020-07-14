@@ -28,6 +28,7 @@ class CreatePhimsTable extends Migration
             $table->double('diemTrungBinh')->nullable()->default(0);
             $table->string('trailer')->nullable();
             $table->foreignId('idHangSanXuat')->constrained('HangSanXuat')->onDelete('cascade');
+            $table->string('hinh')->default('blank.png');
             $table->timestamps();
         });
     }
