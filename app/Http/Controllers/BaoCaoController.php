@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\BaoCao;
 use App\Model\Phim;
 use App\User;
+use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -81,22 +82,28 @@ class BaoCaoController extends Controller
 
     public function postBaoCao($id,Request $request)
     {
-        // Kiem tra unique
-        $this->validate($request,
-        [
-            'noiDung' => 'required',
-        ],
-        [
-            'noiDung.required' => 'Bạn chưa nhập nội dung báo cáo',
-        ]);
+        // kiem tra dang nhap
+        if(Auth::check())
+        {
+            // Kiem tra noi dung bao cao
+            $this->validate($request,
+            [
+                'noiDung' => 'required',
+            ],
+            [
+                'noiDung.required' => 'Bạn chưa nhập nội dung báo cáo',
+            ]);
 
-        $baocao = new BaoCao;
-        $baocao->idPhim = $id;
-        $baocao->idUser = 1; // Lay user bang Auth::user()->idate
-        $baocao->noiDung = $request->noiDung;
-        $baocao->ngay = date('Y/m/d');
-        $baocao->save();
+            $baocao = new BaoCao;
+            $baocao->idPhim = $id;
+            $baocao->idUser = Auth::user()->id;
+            $baocao->noiDung = $request->noiDung;
+            $baocao->ngay = date('Y/m/d');
+            $baocao->save();
 
-        return redirect("phim/$id/")->with('thongbao','Gửi báo cáo thành công');
+            return redirect("phim/$id/")->with('thongbao','Gửi báo cáo thành công');
+        }
+
+        return redirect("phim/$id/")->with('loi','Bạn phải đăng nhập để báo cáo');
     }
 }

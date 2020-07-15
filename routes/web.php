@@ -43,7 +43,7 @@ Route::get('admin/logout','LoginAdminController@getLogout');
 Route::group(['prefix' => 'admin','middleware' => 'adminLogin'], function () {
     
     Route::get('/', function () {
-        return view('admin.layout.index');
+        return redirect('/admin/phim');
     });
 
     //Quan ly hang san xuat

@@ -50,7 +50,7 @@
         @foreach ($users as $user)
             @if ($user->id == $danhgia->idUser)
                 <li class="media">
-                    <a href="#" class="pull-left">
+                    <a class="pull-left">
                         <img src="{{asset('images/upload')}}/{{$user->hinh}}" alt="Avatar" class="img-circle" style="width: 100px;height: 100px;object-fit:cover">
                     </a>
                     <div class="media-body">

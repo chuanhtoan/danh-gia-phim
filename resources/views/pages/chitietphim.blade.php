@@ -136,6 +136,10 @@
                     <div class="success-msg"><i class="fa fa-times-circle" style="margin-right: 10px"></i>{{session('thongbao')}}</div>
                 @endif
 
+                @if (session('loi'))
+                    <div class="error-msg"><i class="fa fa-times-circle" style="margin-right: 10px"></i>{{session('loi')}}</div>
+                @endif
+
                 <div class="entry-content">
                     <div class="uk-grid uk-grid-small">
                         <div class="uk-width-small-1-1 uk-width-medium-3-10">
@@ -167,7 +171,7 @@
                                         <dl class="uk-description-list-horizontal">
                                             <dt>Loại:</dt>
                                             <dd>
-                                                <a href="#">{{$phim->kieu}}</a>
+                                                <a>{{$phim->kieu}}</a>
                                             </dd>
                                             
                                             <dt>Tóm tắt:</dt>
@@ -180,7 +184,7 @@
 
                                                         @foreach ($theloais as $tl)
                                                             @if ($tl->id == $phim_theloai->idTheLoai)
-                                                                <a href="#">{{$tl->ten}}</a>
+                                                                <a href="/theloai/{{$tl->id}}">{{$tl->ten}}</a>
                                                             @endif
                                                         @endforeach
 
@@ -205,7 +209,7 @@
         
         <div class="uk-width-large-2-10 uk-visible-large">
             <div class="one-sixty-wide">
-                <a class="uk-text-center" href="#">
+                <a class="uk-text-center">
                     <img src="{{asset('frontend/img/logo_side_banner.png')}}" title="160x600 Banner">
                 </a>
             </div><!-- .one-sixty-wide -->
@@ -224,7 +228,7 @@
                     @foreach ($nhanvats as $nhanvat)
                         <div class="uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-2">
                             <div class="media">
-                                <a href="#" class="pull-left">
+                                <a class="pull-left">
                                     <img src="{{asset('images/upload')}}/{{$nhanvat->hinh}}" alt="Avatar" style="width: 150px;height: 150px;border-radius: 8px;object-fit:cover;margin: 10px;">
                                 </a>
                                 <div class="media-body">
