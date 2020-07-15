@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Anime DL | @yield('title')</title>
+		<title>Utako | Đánh giá phim</title>
 		<link rel="shortcut icon" href="{{asset('backend/images/icon.png')}}" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="{{asset('frontend/images/apple-touch-icon.png')}}">
 		<link rel="stylesheet" href="{{asset('frontend/css/uikit.min.css')}}">
@@ -15,10 +15,13 @@
 		<script src="{{asset('frontend/js/fontawesome.min.js')}}"></script>
 		<script src="{{asset('frontend/js/glide.min.js')}}"></script>
 		<script src="{{asset('frontend/js/site-scripts.js')}}"></script>
-        
-        {{-- Css --}}
-        @yield('css')
+		
+		{{-- Material icons --}}
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        {{-- Css --}}
+		@yield('css')
+		
     </head>
 	
     <body>
@@ -27,13 +30,12 @@
             @include('layout.header')
             @yield('header')
 			
-            {{-- @include('pages.trangchu') --}}
             @yield('content')
             
             {{-- Footer --}}
 			<footer class="site-footer">				
 				<div class="footer">
-					Copyright © 2018 AnimeDL
+					@ Utako - Website đánh giá và xếp hạng phim
 				</div><!-- .footer -->
 				<a href="javascript:void(0)" class="back-to-top" title="To the Top!"><i class="icon-up-open"></i></a>
 			</footer><!-- .site-footer -->

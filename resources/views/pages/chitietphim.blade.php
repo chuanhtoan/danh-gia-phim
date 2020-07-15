@@ -198,29 +198,6 @@
                                 </ul><!-- .uk-switcher -->
                             </div><!-- .entry-details -->
                         </div><!-- .uk-width-small-1-1 .uk-width-medium-7-10 -->
-                        {{-- <div class="uk-width-1-1">
-                            <div class="entry-share">
-                                <div class="uk-grid uk-grid-small">											
-                                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
-                                        <a href="#" class="share-fb">
-                                            Share on Facebook
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
-                                        <a href="#" class="share-tw">
-                                            Share on Twitter
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
-                                        <a href="#" class="share-gplus">
-                                            Share on Google+
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- .uk-width-small-1-1 --> --}}
                     </div><!-- .uk-grid .uk-grid-small -->							
                 </div><!-- .entry-content -->
             </div><!-- .entry-details -->
@@ -229,7 +206,7 @@
         <div class="uk-width-large-2-10 uk-visible-large">
             <div class="one-sixty-wide">
                 <a class="uk-text-center" href="#">
-                    <img src="img/160x600.png" title="160x600 Banner">
+                    <img src="{{asset('frontend/img/logo_side_banner.png')}}" title="160x600 Banner">
                 </a>
             </div><!-- .one-sixty-wide -->
         </div><!-- .uk-width-large-2-10 .uk-visible-large -->
@@ -239,25 +216,33 @@
         <div class="uk-grid uk-grid-small">
             <div class="uk-width-small-1-1 uk-width-medium-7-10">
                 <h3 class="eplist-title">
-                    <i class="icon-th-list"></i> Episode List
+                    <i class="icon-th-list"></i> Nhân vật
                 </h3><!-- .eplist-title -->
                 
-                <div class="eplist-content">
-                    <div class="uk-scrollable-text">
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 12</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 11</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 10</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 9</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 8</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 7</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 6</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 5</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 4</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 3</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 2</a>
-                        <a href="#"><i class="icon-angle-right"></i> <span class="uk-text-bold">Tokyo Ghoul:re</span> - Capitulo 1</a>
-                    </div><!-- .uk-scrollable-text -->
-                </div><!-- .eplist-content -->
+                {{-- list nhan vat --}}
+                <div class="uk-grid uk-grid-small latest-posted">
+                    @foreach ($nhanvats as $nhanvat)
+                        <div class="uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-2">
+                            <div class="media">
+                                <a href="#" class="pull-left">
+                                    <img src="{{asset('images/upload')}}/{{$nhanvat->hinh}}" alt="Avatar" style="width: 150px;height: 150px;border-radius: 8px;object-fit:cover;margin: 10px;">
+                                </a>
+                                <div class="media-body">
+                                    <br>
+                                    <strong >Tên nhân vật:</strong>
+                                    <p class="text-success">{!! $nhanvat->ten !!}</p>
+                                    <strong >Loại nhân vật</strong>
+                                    <p class="text-success">{!! $nhanvat->loai !!}</p>
+                                </div>
+                            </div>
+                        </div><!-- .uk-width-small-1-3 .uk-width-medium-1-2 .uk-width-large-1-3 -->
+                    @endforeach
+                    
+                </div><!-- .uk-grid .uk-grid-small .latest-posted -->
+                
+                {{-- Pagination --}}
+                {{$nhanvats->links()}}
+
             </div><!-- .uk-width-small-1-1 .uk-width-medium-7-10 -->
             
             <div class="uk-width-small-1-1 uk-width-medium-3-10">
@@ -268,7 +253,7 @@
                 <div class="specs-content">
                     <table class="uk-table uk-table-striped">
                         <tr>
-                            <td><strong>Tiêu đề khác:</strong> 東京喰種トーキョーグール：re 東京喰種トーキョーグール：re 東京喰種トーキョーグール：re</td>
+                            <td><strong>Tiêu đề:</strong> {{$phim->ten}}</td>
                         </tr>
                         
                         <tr>
@@ -308,24 +293,14 @@
                         </tr>
                     </table><!-- .uk-table .uk-table-striped -->
                     
-                    <a href="#" target="_blank" class="slide-button">
+                    {{-- <a href="#" target="_blank" class="slide-button">
                         <span class="slide-square"><i class="icon-download"></i></span>
                         <span class="slide-title">Download All</span>
-                    </a><!-- .slide-button -->
+                    </a><!-- .slide-button --> --}}
                 </div><!-- .specs-content -->
             </div><!-- .uk-width-small-1-1 .uk-width-medium-3-10 -->
         </div><!-- .uk-grid .uk-grid-small -->
     </div><!-- .entry-episodes -->
-    
-    <div class="seven-two-eight-wide">
-        <div class="uk-grid uk-grid-small">
-            <div class="uk-width-small-1-1">
-                <a href="#">
-                    <img src="img/728x90.png" alt="728x90 Banner">
-                </a>
-            </div><!-- .uk-width-large-2-10 .uk-visible-large -->
-        </div>
-    </div>
     
     <div class="entry-comments">
         <div class="uk-grid uk-grid-small">

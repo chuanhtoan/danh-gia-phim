@@ -16,12 +16,21 @@ use Illuminate\Support\Facades\Route;
 //Frontend
 Route::get('/','PageController@index');
 
+//login && register
 Route::get('register','UserController@getRegister');
 Route::post('register','UserController@postRegister');
+Route::get('login','UserController@getLogin');
+Route::post('login','UserController@postLogin');
+Route::get('logout','UserController@getLogout');
 
 Route::get('phim/{phim_id}','PageController@show');
 Route::post('baoCao/{id}','BaoCaoController@postBaoCao');
 Route::post('danhgia/{id}','DanhGiaController@postDanhgia');
+Route::get('bangxephang','PageController@getBangXepHang');
+Route::get('phim_bangxephang/{id}','PageController@getPhim_BangXepHang');
+Route::get('theloai/{id}','PageController@getTheLoai');
+Route::get('search','PageController@search');
+Route::get('baiviet','PageController@baiviet');
 
 //Backend
 

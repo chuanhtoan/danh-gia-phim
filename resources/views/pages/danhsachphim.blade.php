@@ -73,7 +73,7 @@
         @foreach ($phims as $phim)
             <div class="uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-3">
                 <div class="single-posted">
-                    <a href="phim/{{$phim->id}}">
+                    <a href="/phim/{{$phim->id}}">
                         <div class="posted-thumb">
                             <img src="{{asset('images/upload')}}/{{$phim->hinh}}" style="object-fit: cover;">
                         </div><!-- .posted-thumb -->

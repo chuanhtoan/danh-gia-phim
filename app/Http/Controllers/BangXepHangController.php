@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\BangXepHang;
 use App\User;
+use Auth;
+use Illuminate\Validation\Rule;
 
 class BangXepHangController extends Controller
 {
@@ -29,12 +31,19 @@ class BangXepHangController extends Controller
     public function store(Request $request)
     {
         // Kiem tra unique
+        $ten = $request->ten;
+        $idUser = $request->idUser;
+        if($idUser == null)
+            $idUser = Auth::user()->id;
         $this->validate($request,
         [
-            'ten' => 'unique:BangXepHang',
+            'ten' => [Rule::unique('BangXepHang')->where(function($query) use($ten,$idUser)
+            {
+                return $query->where('ten',$ten)->where('idUser',$idUser);
+            })],
         ],
         [
-            'ten.unique' => 'Bảng xếp hạng đã tồn tại',
+            'ten.unique' => 'Đã có bảng xếp hạng này rồi',
         ]);
 
         $product = BangXepHang::create($request->input());
@@ -63,12 +72,19 @@ class BangXepHangController extends Controller
     public function update(Request $request, $id)
     {
         // Kiem tra unique
+        $ten = $request->ten;
+        $idUser = $request->idUser;
+        if($idUser == null)
+            $idUser = Auth::user()->id;
         $this->validate($request,
         [
-            'ten' => [\Illuminate\Validation\Rule::unique('BangXepHang')->ignore($id)],
+            'ten' => [Rule::unique('BangXepHang')->ignore($id)->where(function($query) use($ten,$idUser)
+            {
+                return $query->where('ten',$ten)->where('idUser',$idUser);
+            })],
         ],
         [
-            'ten.unique' => 'Bảng xếp hạng đã tồn tại',
+            'ten.unique' => 'Đã có bảng xếp hạng này rồi',
         ]);
 
         $product = BangXepHang::find($id);

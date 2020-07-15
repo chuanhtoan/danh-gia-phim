@@ -34,7 +34,7 @@ $(document).ready(function(){
             success: function (data) {
                 $('#product_id').val(data.id);
                 $('#ten').val(data.ten);
-                $('#idUser').val(data.idUser);
+                // $('#idUser').val(data.idUser);
                 $('#btn-save').val("update");
                 $('#createEditModal').modal('show');
             },
@@ -106,15 +106,14 @@ $(document).ready(function(){
             type = "PUT"; //for updating existing resource
             my_url += '/' + product_id;
         }
-        console.log(formData);
+        
         $.ajax({
             type: type,
             url: my_url,
             data: formData,
             dataType: 'json',
             success: function (data) {
-                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten + '</td><td>' 
-                + $('#idUser option:selected').html();
+                var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.ten;
                 product += '<td><a href="/admin/phim_bangxephang/' + data.id + '" class="btn btn-primary" style="color: white">Show</a>';
                 product += '<button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
                 product += ' <button class="btn btn-danger delete-product" value="' + data.id + '">Delete</button></td></tr>';
@@ -132,7 +131,8 @@ $(document).ready(function(){
             },
             error: function (data) {
                 $('#ten').addClass('is-invalid');
-                $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
+                // $('#textUnique').html(JSON.parse(data.responseText).errors.ten[0]);
+                console.log(JSON.parse(data.responseText).errors);
                 console.log('Error:', data);
             }           
         });

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -107,6 +109,34 @@ class UserController extends Controller
         $user->loai = 'user';
         $user->save();
 
-        return redirect('/');
+        return redirect('/login');
     }
+
+    public function getLogin()
+    {
+        Auth::logout();
+        return view('pages.login');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $arr = [
+            'username' => $request->username,
+            'password' => $request->password
+        ];
+        
+
+        if(Auth::attempt($arr)){
+            return \redirect('/');
+        }else{
+            return view('pages.login')->with(['error'=>true]);
+        }
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+        return \redirect('/');
+    }
+
 }

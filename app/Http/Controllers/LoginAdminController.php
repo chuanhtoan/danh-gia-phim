@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class LoginAdminController extends Controller
 {
-    public function getLogin(){
-        return view('admin.login');
+   public function getLogin()
+   {
+      Auth::guard('admin')->logout();
+      return view('admin.login');
    }
 
-   public function postLogin(Request $request){
+   public function postLogin(Request $request)
+   {
       $arr = [
          'username' => $request->username,
          'password' => $request->password
@@ -28,7 +31,8 @@ class LoginAdminController extends Controller
       }
    }
 
-   public function getLogout(){
+   public function getLogout()
+   {
       Auth::guard('admin')->logout();
       return \redirect('/admin/login');
    }

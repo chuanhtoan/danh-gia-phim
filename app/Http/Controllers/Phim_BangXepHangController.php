@@ -48,6 +48,11 @@ class Phim_BangXepHangController extends Controller
         ]);
 
         $product = Phim_BangXepHang::create($request->input());
+
+        // Them hinh cua phim vao file json
+        $phim = Phim::find($request->idPhim);
+        $product['hinh'] = $phim->hinh;
+
         return response()->json($product);
     }
 
@@ -91,6 +96,11 @@ class Phim_BangXepHangController extends Controller
         $product->idPhim = $request->idPhim;
         $product->hang = $request->hang;
         $product->save();
+
+        // Them hinh cua phim vao file json
+        $phim = Phim::find($request->idPhim);
+        $product['hinh'] = $phim->hinh;
+
         return response()->json($product);
     }
 

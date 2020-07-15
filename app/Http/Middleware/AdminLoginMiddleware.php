@@ -17,7 +17,11 @@ class AdminLoginMiddleware
     public function handle($request, Closure $next)
     {
         if(Auth::guard('admin')->check()){
-            return $next($request);
+            $user = Auth::guard('admin')->user();
+            if($user->loai == 'admin')
+              return $next($request);
+            else
+              return \redirect('/admin/login');
           }          
           else 
             return \redirect('/admin/login');
