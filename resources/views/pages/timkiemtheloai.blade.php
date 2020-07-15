@@ -35,7 +35,7 @@
         
         <div class="single-widget">
             <h4 class="widget-title">
-                <i class="icon-megaphone"></i> Quảng Cáo
+                <i class="icon-megaphone"></i> Banner
             </h4><!-- .widget-title -->
             
             <div class="widget-content">
