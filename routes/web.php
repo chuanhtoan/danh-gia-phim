@@ -41,9 +41,31 @@ Route::get('admin/logout','LoginAdminController@getLogout');
 
 
 Route::group(['prefix' => 'admin','middleware' => 'adminLogin'], function () {
-    
+
     Route::get('/', function () {
         return redirect('/admin/phim');
+    });
+
+    Route::get('/novel', function () {
+        return view('/admin/novel/novel');
+    });
+    Route::get('/category', function () {
+        return view('/admin/novel/category');
+    });
+    Route::get('/chapter', function () {
+        return view('/admin/novel/chapter');
+    });
+    Route::get('/another-title', function () {
+        return view('/admin/novel/another-title');
+    });
+    Route::get('/follow', function () {
+        return view('/admin/novel/follow');
+    });
+    Route::get('/comment', function () {
+        return view('/admin/novel/comment');
+    });
+    Route::get('/account', function () {
+        return view('/admin/novel/account');
     });
 
     //Quan ly hang san xuat
@@ -59,7 +81,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminLogin'], function () {
         // delete product
         Route::delete('/{hangsanxuat_id}', 'HangSanXuatController@destroy');
     });
-    
+
     //Quan ly the loai
     Route::group(['prefix' => 'theloai'], function () {
         Route::get('/','TheLoaiController@index')->name('theloai.index'); //Display Index Page

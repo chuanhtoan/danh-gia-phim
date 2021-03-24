@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username',50)->unique();
             $table->string('password');
             $table->string('email',50)->nullable();
+            $table->string('dateOfBirth',50)->nullable();
             $table->string('hinh')->default('blank.png');
             $table->enum('loai', ['user', 'admin'])->default('user');;
             $table->rememberToken();

@@ -15,72 +15,60 @@
 
                 <!-- HEADING -->
                 <div class="py-2 drawer-heading">
-                    Quản lý Phim
+                    Quản lý Tiểu Thuyết
                 </div>
                 <!-- MENU -->
                 <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
                     <li class="drawer-menu-item">
                     {{-- <li class="drawer-menu-item active "> --}}
-                        <a href="{{route('phim.index')}}">
+                        <a href="/admin/novel">
                             <i class="material-icons">local_movies</i>
-                            <span class="drawer-menu-text"> Phim</span>
+                            <span class="drawer-menu-text"> Tiểu Thuyết</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item">
-                        <a href="{{route('theloai.index')}}">
+                        <a href="/admin/novel">
                             <i class="material-icons">dns</i>
                             <span class="drawer-menu-text"> Thể Loại</span>
                             {{-- <span class="badge badge-pill badge-success ml-1">4</span> --}}
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="{{route('hangsanxuat.index')}}">
+                        <a href="/admin/novel">
                             <i class="material-icons">store</i>
-                            <span class="drawer-menu-text"> Hãng Sản Xuất</span>
+                            <span class="drawer-menu-text"> Chương</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="{{route('nhanvat.index')}}">
+                        <a href="/admin/novel-title">
                             <i class="material-icons">movies</i>
-                            <span class="drawer-menu-text"> Nhân Vật</span>
+                            <span class="drawer-menu-text"> Tiêu Đề Khác</span>
                         </a>
                     </li>
                 </ul>
 
                 <!-- HEADING -->
                 <div class="py-2 drawer-heading">
-                    Quản lý Phim
+                    Quản lý Khác
                 </div>
                 <!-- MENU -->
                 <ul class="drawer-menu" id="dasboardMenu" data-children=".drawer-submenu">
                     <li class="drawer-menu-item ">
-                        <a href="{{route('bangxephang.index')}}">
-                            <i class="material-icons">trending_up</i>
-                            <span class="drawer-menu-text"> Bảng Xếp Hạng</span>
-                        </a>
-                    </li>
-                    <li class="drawer-menu-item">
-                        <a href="{{route('baiviet.index')}}">
+                        <a href="/admin/novel">
                             <i class="material-icons">dashboard</i>
-                            <span class="drawer-menu-text"> Bài Viết</span>
-                        </a>
-                    </li>
-                    <li class="drawer-menu-item">
-                        <a href="{{route('danhgia.index')}}">
-                            <i class="material-icons">account_balance_wallet</i>
-                            <span class="drawer-menu-text"> Đánh Giá</span>
+                            <span class="drawer-menu-text"> Theo Dõi</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
-                        <a href="{{route('baocao.index')}}">
+                        <a href="/admin/novel">
                             <i class="material-icons">announcement</i>
-                            <span class="drawer-menu-text"> Báo Cáo</span>
+                            <span class="drawer-menu-text"> Bình Luận</span>
                         </a>
                     </li>
                     <li class="drawer-menu-item ">
                         <a href="{{route('user.index')}}">
                             <i class="material-icons">account_circle</i>
-                            <span class="drawer-menu-text"> Tài khoản</span>
+                            <span class="drawer-menu-text"> Tài Khoản</span>
                         </a>
                     </li>
                 </ul>
@@ -88,5 +76,5 @@
         </div>
     </div>
 </div>
-    
+
 @endsection
